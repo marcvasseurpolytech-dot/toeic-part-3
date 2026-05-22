@@ -1,0 +1,1219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TOEIC Listening Practice — Complete Part 3 (32-70)</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            color: #2d3748;
+            line-height: 1.6;
+            font-size: 11pt;
+            background-color: #fafbfd;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        }
+        .header-box {
+            border-bottom: 3px solid #2b6cb0;
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        h1 {
+            font-size: 22pt;
+            color: #2b6cb0;
+            margin: 0 0 6px 0;
+            text-transform: uppercase;
+        }
+        .subtitle {
+            font-size: 11.5pt;
+            color: #4a5568;
+            margin: 0;
+            font-style: italic;
+        }
+        .audio-container {
+            background-color: #ebf8ff;
+            border: 2px solid #2b6cb0;
+            padding: 20px;
+            margin-bottom: 35px;
+            border-radius: 6px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .audio-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        .audio-info {
+            flex-grow: 1;
+            min-width: 250px;
+        }
+        .audio-title {
+            font-weight: bold;
+            color: #2b6cb0;
+            margin-bottom: 5px;
+            font-size: 12pt;
+        }
+        .audio-player {
+            width: 100%;
+            max-width: 450px;
+            display: block;
+        }
+        .audio-fallback-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background-color: #2b6cb0;
+            color: white;
+            border: none;
+            padding: 10px 16px;
+            font-size: 10pt;
+            font-weight: bold;
+            border-radius: 4px;
+            text-decoration: none;
+            transition: background-color 0.2s;
+        }
+        .audio-fallback-btn:hover {
+            background-color: #1d4ed8;
+        }
+        .part-directions {
+            font-size: 10pt;
+            color: #4a5568;
+            background-color: #f7fafc;
+            padding: 15px;
+            border-left: 3px solid #718096;
+            margin-bottom: 30px;
+        }
+        .section-break {
+            background-color: #2b6cb0;
+            color: #ffffff;
+            padding: 10px 15px;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 12pt;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+        .question-block {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+        .reference-title {
+            font-weight: bold;
+            color: #2b6cb0;
+            margin-bottom: 20px;
+            font-size: 11pt;
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 8px;
+        }
+        .questions-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+        .question-element {
+            padding: 15px;
+            border-radius: 4px;
+            border-left: 3px solid #cbd5e0;
+            background-color: #fdfdfd;
+            transition: all 0.2s;
+        }
+        .question-text {
+            font-weight: bold;
+            margin-bottom: 12px;
+            font-size: 10.5pt;
+            color: #1a202c;
+        }
+        .options-list {
+            list-style-type: none;
+            padding-left: 0;
+            margin: 0;
+        }
+        .options-list li {
+            margin-bottom: 8px;
+        }
+        .options-list label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            padding: 6px 10px;
+            border-radius: 4px;
+            font-size: 10pt;
+            transition: background-color 0.1s;
+        }
+        .options-list label:hover {
+            background-color: #f0f4f8;
+        }
+        .options-list input[type="radio"] {
+            margin: 0;
+            width: 16px;
+            height: 16px;
+            cursor: pointer;
+        }
+        .stimulus-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background-color: #edf2f7;
+            color: #2b6cb0;
+            border: 1px solid #bfdbfe;
+            padding: 10px 18px;
+            font-size: 10pt;
+            font-weight: bold;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            margin-bottom: 20px;
+            transition: all 0.2s;
+        }
+        .stimulus-btn:hover {
+            background-color: #2b6cb0;
+            color: #ffffff;
+        }
+        .submit-container {
+            text-align: center;
+            margin: 40px 0;
+        }
+        .submit-btn {
+            background-color: #2f855a;
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 13pt;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: background-color 0.2s;
+        }
+        .submit-btn:hover {
+            background-color: #22543d;
+        }
+        .feedback-box {
+            margin-top: 12px;
+            padding: 12px;
+            border-radius: 4px;
+            font-size: 10pt;
+            display: none;
+        }
+        .feedback-correct {
+            background-color: #f0fff4;
+            border: 1px solid #c6f6d5;
+            color: #22543d;
+        }
+        .feedback-wrong {
+            background-color: #fff5f5;
+            border: 1px solid #fed7d7;
+            color: #742a2a;
+        }
+        .correct-answer-highlight {
+            font-weight: bold;
+            color: #2f855a;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="header-box">
+            <h1>TOEIC Part 3 Evaluation Sheet</h1>
+            <div class="subtitle">Questions 32–70 | Complete Listening Practice Module</div>
+        </div>
+
+        <!-- Section Audio unifiée et sécurisée -->
+        <div class="audio-container">
+            <div class="audio-row">
+                <div class="audio-info">
+                    <div class="audio-title">🔊 Audio Track Player (Piste 3)</div>
+                    <div style="font-size: 9.5pt; color: #4a5568;">Click Play to listen. If your browser blocks it locally due to security rules, use the direct link button on the right.</div>
+                </div>
+                <audio id="exam-audio" class="audio-player" controls preload="auto">
+                    <source src="https://docs.google.com/uc?export=download&id=1M_BmpnlTYTPtAkmGrvW4nYPmznocPcQP" type="audio/mpeg">
+                    Your browser does not support the audio element.
+                </audio>
+                <div>
+                    <a href="https://docs.google.com/uc?export=download&id=1M_BmpnlTYTPtAkmGrvW4nYPmznocPcQP" target="_blank" class="audio-fallback-btn">
+                        🔗 Open/Download Audio File
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="part-directions">
+            <strong>Directions:</strong> You will hear some conversations between two or more people. You will be asked to answer three questions about what the speakers say in each conversation. Select the best response to each question.
+        </div>
+
+        <form id="toeic-form">
+
+        <div class="question-block">
+            <div class="reference-title">Questions 32-34 refer to the following conversation.</div>
+            <div class="questions-grid">
+    
+                <div class="question-element" id="q-box-32">
+                    <div class="question-text">32. Where does the woman work?</div>
+                    <ul class="options-list">
+                                <li>
+                            <label><input type="radio" name="question_32" value="A"> (A) At a medical clinic</label>
+                        </li>
+                                    <li>
+                            <label><input type="radio" name="question_32" value="B"> (B) At a hotel front desk</label>
+                        </li>
+                                    <li>
+                            <label><input type="radio" name="question_32" value="C"> (C) At a fitness center</label>
+                        </li>
+                                    <li>
+                            <label><input type="radio" name="question_32" value="D"> (D) At an electronics store</label>
+                        </li>
+                                </ul>
+                    <div class="feedback-box" id="feedback-32" data-correct="C">
+                        <strong>Correction :</strong> Correct Answer is <span class="correct-answer-highlight">(C)</span>.<br>
+                        <span style="color: #4a5568; font-style: italic;">Context: The woman says 'Welcome to Wellness Fitness Center' right at the beginning.</span>
+                    </div>
+                </div>
+        
+                <div class="question-element" id="q-box-33">
+                    <div class="question-text">33. What does the man request?</div>
+                    <ul class="options-list">
+                                <li>
+                            <label><input type="radio" name="question_33" value="A"> (A) A tour of the facility</label>
+                        </li>
+                                    <li>
+                            <label><input type="radio" name="question_33" value="B"> (B) A refund on a membership</label>
+                        </li>
+                                    <li>
+                            <label><input type="radio" name="question_33" value="C"> (C) A replacement key card</label>
+                        </li>
+                                    <li>
+                            <label><input type="radio" name="question_33" value="D"> (D) A schedule of aerobics classes</label>
+                        </li>
+                                </ul>
+                    <div class="feedback-box" id="feedback-33" data-correct="A">
+                        <strong>Correction :</strong> Correct Answer is <span class="correct-answer-highlight">(A)</span>.<br>
+                        <span style="color: #4a5568; font-style: italic;">Context: The man requests 'I'd like to see the pool and the exercise equipment. Can you show me around?' which corresponds to a tour.</span>
+                    </div>
+                </div>
+        
+                <div class="question-element" id="q-box-34">
+                    <div class="question-text">34. What special offer does the woman mention?</div>
+                    <ul class="options-list">
+                                <li>
+                            <label><input type="radio" name="question_34" value="A"> (A) A discounted family rate</label>
+                        </li>
+                                    <li>
+                            <label><input type="radio" name="question_34" value="B"> (B) A free one-week pass</label>
+                        </li>
+                                    <li>
+                            <label><input type="radio" name="question_34" value="C"> (C) Complimentary personal training</label>
+                        </li>
+                                    <li>
+                            <label><input type="radio" name="question_34" value="D"> (D) Waived registration fees</label>
+                        </li>
+                                </ul>
+                    <div class="feedback-box" id="feedback-34" data-correct="B">
+                        <strong>Correction :</strong> Correct Answer is <span class="correct-answer-highlight">(B)</span>.<br>
+                        <span style="color: #4a5568; font-style: italic;">Context: The woman explicitly notes 'we offer a free one-week pass so you can try out the Fitness Center'.</span>
+                    </div>
+                </div>
+                    </div>
+        </div>
+    
+        <div class="question-block">
+            <div class="reference-title">Questions 35-37 refer to the following conversation.</div>
+            <div class="questions-grid">
+    
+                <div class="question-element" id="q-box-35">
+                    <div class="question-text">35. Where does the man work?</div>
+                    <ul class="options-list">
+                                <li>
+                            <label><input type="radio" name="question_35" value="A"> (A) At a travel agency</label>
+                        </li>
+                                    <li>
+                            <label><input type="radio" name="question_35" value="B"> (B) At a dentist's office</label>
+                        </li>
+                                    <li>
+                            <label><input type="radio" name="question_35" value="C"> (C) At an airport check-in counter</label>
+                        </li>
+                                    <li>
+                            <label><input type="radio" name="question_35" value="D"> (D) At a hotel lobby desk</label>
+                        </li>
+                                </ul>
+                    <div class="feedback-box" id="feedback-35" data-correct="B">
+                        <strong>Correction :</strong> Correct Answer is <span class="correct-answer-highlight">(B)</span>.<br>
+                        <span style="color: #4a5568; font-style: italic;">Context: The man introduces himself by saying 'This is Thomas from Dr. Dene's office... for a teeth cleaning', confirming a dentist's office.</span>
+                    </div>
+                </div>
+        
+                <div class="question-element" id="q-box-36">
+                    <div class="question-text">36. What is the woman doing on Tuesday?</div>
+                    <ul class="options-list">
+                                <li>
+                            <label><input type="radio" name="question_36" value="A"> (A) Visiting a family member</label>
+                        </li>
+                                    <li>
+                            <label><input type="radio" name="question_36" value="B"> (B) Attending a medical conference</label>
+                        </li>
+                                    <li>
+                            <label><input type="radio" name="question_36" value="C"> (C) Flying back from Los Angeles</label>
+                        </li>
+                                    <li>
+                            <label><input type="radio" name="question_36" value="D"> (D) Leading a team training session</label>
+                        </li>
+                                </ul>
+                    <div class="feedback-box" id="feedback-36" data-correct="C">
+                        <strong>Correction :</strong> Correct Answer is <span class="correct-answer-highlight">(C)</span>.<br>
+                        <span style="color: #4a5568; font-style: italic;">Context: The woman mentions 'I'm flying back from Los Angeles on Tuesday morning'.</span>
+                    </div>
+                </div>
+        
+                <div class="question-element" id="q-box-37">
+                    <div class="question-text">37. What does the man agree to do?</div>
+                    <ul class="options-list">
+                                <li>
+                            <label><input type="radio" name="question_37" value="A"> (A) Waive a cancellation penalty fee</label>
+                        </li>
+                                    <li>
+                            <label><input type="radio" name="question_37" value="B"> (B) Provide a written receipt</label>
+                        </li>
+                                    <li>
+                            <label><input type="radio" name="question_37" value="C"> (C) Reschedule the appointment for Wednesday</label>
+                        </li>
+                                    <li>
+                            <label><input type="radio" name="question_37" value="D"> (D) Speak with the head doctor</label>
+                        </li>
+                                </ul>
+                    <div class="feedback-box" id="feedback-37" data-correct="C">
+                        <strong>Correction :</strong> Correct Answer is <span class="correct-answer-highlight">(C)</span>.<br>
+                        <span style="color: #4a5568; font-style: italic;">Context: The man verifies availability and agrees to reschedule the appointment for Wednesday morning at 10 a.m.</span>
+                    </div>
+                </div>
+                    </div>
+        </div>
+    
+        <div class="question-block">
+            <div class="reference-title">Questions 38-40 refer to the following conversation.</div>
+            <div class="questions-grid">
+    
+                <div class="question-element" id="q-box-38">
+                    <div class="question-text">38. What are the speakers discussing?</div>
+                    <ul class="options-list">
+                                <li>
+                            <label><input type="radio" name="question_38" value="A"> (A) Buying a digital camera</label>
+                        </li>
+                                    <li>
+                            <label><input type="radio" name="question_38" value="B"> (B) Repairing a desktop computer</label>
+                        </li>
+                                    <li>
+                            <label><input type="radio" name="question_38" value="C"> (C) Booking a photography studio</label>
+                        </li>
+                                    <li>
+                            <label><input type="radio" name="question_38" value="D"> (D) Shipping a broken device back</label>
+                        </li>
+                                </ul>
+                    <div class="feedback-box" id="feedback-38" data-correct="A">
+                        <strong>Correction :</strong> Correct Answer is <span class="correct-answer-highlight">(A)</span>.<br>
+                        <span style="color: #4a5568; font-style: italic;">Context: The woman explicitly states she is looking to buy a specific model of a digital camera.</span>
+                    </div>
+                </div>
+        
+                <div class="question-element" id="q-box-39">
+                    <div class="question-text">39. Where does the man say he will go?</div>
+                    <ul class="options-list">
+                                <li>
+                            <label><input type="radio" name="question_39" value="A"> (A) To a local supplier's warehouse</label>
+                        </li>
+                                    <li>
+                            <label><input type="radio" name="question_39" value="B"> (B) To the store's back stock room</label>
+                        </li>
+                                    <li>
+                            <label><input type="radio" name="question_39" value="C"> (C) To a competitor's branch</label>
+                        </li>
+                                    <li>
+                            <label><input type="radio" name="question_39" value="D"> (D) To the customer service desk</label>
+                        </li>
+                                </ul>
+                    <div class="feedback-box" id="feedback-39" data-correct="B">
+                        <strong>Correction :</strong> Correct Answer is <span class="correct-answer-highlight">(B)</span>.<br>
+                        <span style="color: #4a5568; font-style: italic;">Context: The clerk states he will check the store's back stock room to see if any units remain.</span>
+                    </div>
+                </div>
+        
+                <div class="question-element" id="q-box-40">
+                    <div class="question-text">40. What will most likely happen next?</div>
+                    <ul class="options-list">
+                                <li>
+                            <label><input type="radio" name="question_40" value="A"> (A) The woman will request a refund.</label>
+                        </li>
+                                    <li>
+                            <label><input type="radio" name="question_40" value="B"> (B) The man will verify the inventory availability.</label>
+                        </li>
+                                    <li>
+                            <label><input type="radio" name="question_40" value="C"> (C) The store manager will apply a new discount.</label>
+                        </li>
+                                    <li>
+                            <label><input type="radio" name="question_40" value="D"> (D) A shipping label will be printed out.</label>
+                        </li>
+                                </ul>
+                    <div class="feedback-box" id="feedback-40" data-correct="B">
+                        <strong>Correction :</strong> Correct Answer is <span class="correct-answer-highlight">(B)</span>.<br>
+                        <span style="color: #4a5568; font-style: italic;">Context: The man goes immediately to verify inventory availability in the back room.</span>
+                    </div>
+                </div>
+                    </div>
+        </div>
+    
+        <div class="question-block">
+            <div class="reference-title">Questions 41-43 refer to the following conversation.</div>
+            <div class="questions-grid">
+    
+                <div class="question-element" id="q-box-41">
+                    <div class="question-text">41. Why is the woman concerned?</div>
+                    <ul class="options-list">
+                                <li>
+                            <label><input type="radio" name="question_41" value="A"> (A) A delivery driver is running late.</label>
+                        </li>
+                                    <li>
+                            <label><input type="radio" name="question_41" value="B"> (B) There might not be enough replacement parts.</label>
+                        </li>
+                                    <li>
+                            <label><input type="radio" name="question_41" value="C"> (C) The repair technicians require extra training.</label>
+                        </li>
+                                    <li>
+                            <label><input type="radio" name="question_41" value="D"> (D) The service garage is closing early today.</label>
+                        </li>
+                                </ul>
+                    <div class="feedback-box" id="feedback-41" data-correct="B">
+                        <strong>Correction :</strong> Correct Answer is <span class="correct-answer-highlight">(B)</span>.<br>
+                        <span style="color: #4a5568; font-style: italic;">Context: The woman expresses concern that they might run short of critical replacement parts.</span>
+                    </div>
+                </div>
+        
+                <div class="question-element" id="q-box-42">
+                    <div class="question-text">42. What does the man imply when he says, 'Well, all of the parts are on the shelves'?</div>
+                    <ul class="options-list">
+                                <li>
+                            <label><input type="radio" name="question_42" value="A"> (A) The inventory has already been restocked.</label>
+                        </li>
+                                    <li>
+                            <label><input type="radio" name="question_42" value="B"> (B) The store needs to purchase extra shelving.</label>
+                        </li>
+                                    <li>
+                            <label><input type="radio" name="question_42" value="C"> (C) Some items have been placed in the wrong section.</label>
+                        </li>
+                                    <li>
+                            <label><input type="radio" name="question_42" value="D"> (D) Employees should begin counting the stock items.</label>
+                        </li>
+                                </ul>
+                    <div class="feedback-box" id="feedback-42" data-correct="A">
+                        <strong>Correction :</strong> Correct Answer is <span class="correct-answer-highlight">(A)</span>.<br>
+                        <span style="color: #4a5568; font-style: italic;">Context: He is indicating that the inventory has already been unpacked and restocked completely.</span>
+                    </div>
+                </div>
+        
+                <div class="question-element" id="q-box-43">
+                    <div class="question-text">43. What does the man suggest?</div>
+                    <ul class="options-list">
+                                <li>
+                            <label><input type="radio" name="question_43" value="A"> (A) Delaying a customer's standard service appointment</label>
+                        </li>
+                                    <li>
+                            <label><input type="radio" name="question_43" value="B"> (B) Ordering more inventory from a new distributor</label>
+                        </li>
+                                    <li>
+                            <label><input type="radio" name="question_43" value="C"> (C) Organizing the parts before the afternoon rush</label>
+                        </li>
+                                    <li>
+                            <label><input type="radio" name="question_43" value="D"> (D) Requesting extra support staff help</label>
+                        </li>
+                                </ul>
+                    <div class="feedback-box" id="feedback-43" data-correct="C">
+                        <strong>Correction :</strong> Correct Answer is <span class="correct-answer-highlight">(C)</span>.<br>
+                        <span style="color: #4a5568; font-style: italic;">Context: He suggests organizing and checking the parts before the heavy afternoon rush begins.</span>
+                    </div>
+                </div>
+                    </div>
+        </div>
+    
+        <div class="question-block">
+            <div class="reference-title">Questions 44-46 refer to the following conversation.</div>
+            <div class="questions-grid">
+    
+                <div class="question-element" id="q-box-44">
+                    <div class="question-text">44. Who most likely is the woman?</div>
+                    <ul class="options-list">
+                                <li>
+                            <label><input type="radio" name="question_44" value="A"> (A) A software programmer</label>
+                        </li>
+                                    <li>
+                            <label><input type="radio" name="question_44" value="B"> (B) A corporate director</label>
+                        </li>
+                                    <li>
+                            <label><input type="radio" name="question_44" value="C"> (C) A marketing project manager</label>
+                        </li>
+                                    <li>
+                            <label><input type="radio" name="question_44" value="D"> (D) A financial auditor specialist</label>
+                        </li>
+                                </ul>
+                    <div class="feedback-box" id="feedback-44" data-correct="C">
+                        <strong>Correction :</strong> Correct Answer is <span class="correct-answer-highlight">(C)</span>.<br>
+                        <span style="color: #4a5568; font-style: italic;">Context: The dialogue identifies her position as a marketing project manager supervising timelines.</span>
+                    </div>
+                </div>
+        
+                <div class="question-element" id="q-box-45">
+                    <div class="question-text">45. Why does Jacob consult with Mr. Shen?</div>
+                    <ul class="options-list">
+                                <li>
+                            <label><input type="radio" name="question_45" value="A"> (A) To request a transfer to a different department</label>
+                        </li>
+                                    <li>
+                            <label><input type="radio" name="question_45" value="B"> (B) To review a marketing timeline and budget draft</label>
+                        </li>
+                                    <li>
+                            <label><input type="radio" name="question_45" value="C"> (C) To ask for an extension on a project deadline</label>
+                        </li>
+                                    <li>
+                            <label><input type="radio" name="question_45" value="D"> (D) To report a technical error with the software</label>
+                        </li>
+                                </ul>
+                    <div class="feedback-box" id="feedback-45" data-correct="B">
+                        <strong>Correction :</strong> Correct Answer is <span class="correct-answer-highlight">(B)</span>.<br>
+                        <span style="color: #4a5568; font-style: italic;">Context: Jacob is seeking a comprehensive review of a new marketing timeline and draft budget numbers.</span>
+                    </div>
+                </div>
+        
+                <div class="question-element" id="q-box-46">
+                    <div class="question-text">46. What does Mr. Shen say he will do?</div>
+                    <ul class="options-list">
+                                <li>
+                            <label><input type="radio" name="question_46" value="A"> (A) Approve a corporate budget immediately</label>
+                        </li>
+                                    <li>
+                            <label><input type="radio" name="question_46" value="B"> (B) Schedule a follow-up presentation with directors</label>
+                        </li>
+                                    <li>
+                            <label><input type="radio" name="question_46" value="C"> (C) Review the draft numbers with Jacob right now</label>
+                        </li>
+                                    <li>
+                            <label><input type="radio" name="question_46" value="D"> (D) Hire an external design consultant firm</label>
+                        </li>
+                                </ul>
+                    <div class="feedback-box" id="feedback-46" data-correct="C">
+                        <strong>Correction :</strong> Correct Answer is <span class="correct-answer-highlight">(C)</span>.<br>
+                        <span style="color: #4a5568; font-style: italic;">Context: Mr. Shen agrees to look over the draft figures with Jacob immediately.</span>
+                    </div>
+                </div>
+                    </div>
+        </div>
+    
+        <div class="question-block">
+            <div class="reference-title">Questions 47-49 refer to the following conversation.</div>
+            <div class="questions-grid">
+    
+                <div class="question-element" id="q-box-47">
+                    <div class="question-text">47. What change is occurring next month?</div>
+                    <ul class="options-list">
+                                <li>
+                            <label><input type="radio" name="question_47" value="A"> (A) A new digital expense reporting system is being implemented.</label>
+                        </li>
+                                    <li>
+                            <label><input type="radio" name="question_47" value="B"> (B) The company is relocating its headquarters.</label>
+                        </li>
+                                    <li>
+                            <label><input type="radio" name="question_47" value="C"> (C) A series of client meetings will be scheduled.</label>
+                        </li>
+                                    <li>
+                            <label><input type="radio" name="question_47" value="D"> (D) The corporate training budget will be reduced.</label>
+                        </li>
+                                </ul>
+                    <div class="feedback-box" id="feedback-47" data-correct="A">
+                        <strong>Correction :</strong> Correct Answer is <span class="correct-answer-highlight">(A)</span>.<br>
+                        <span style="color: #4a5568; font-style: italic;">Context: The organization is launching a brand-new digital expense reporting workflow next month.</span>
+                    </div>
+                </div>
+        
+                <div class="question-element" id="q-box-48">
+                    <div class="question-text">48. Why is Sarah nervous about the change?</div>
+                    <ul class="options-list">
+                                <li>
+                            <label><input type="radio" name="question_48" value="A"> (A) She might lose her historical expense records.</label>
+                        </li>
+                                    <li>
+                            <label><input type="radio" name="question_48" value="B"> (B) She thinks the training sessions will be too long.</label>
+                        </li>
+                                    <li>
+                            <label><input type="radio" name="question_48" value="C"> (C) She is not comfortable with complex new software.</label>
+                        </li>
+                                    <li>
+                            <label><input type="radio" name="question_48" value="D"> (D) She will have to work extra overtime hours.</label>
+                        </li>
+                                </ul>
+                    <div class="feedback-box" id="feedback-48" data-correct="C">
+                        <strong>Correction :</strong> Correct Answer is <span class="correct-answer-highlight">(C)</span>.<br>
+                        <span style="color: #4a5568; font-style: italic;">Context: Sarah explicitly voices discomfort regarding managing complex or unfamiliar software tools.</span>
+                    </div>
+                </div>
+        
+                <div class="question-element" id="q-box-49">
+                    <div class="question-text">49. What does the man say management will do?</div>
+                    <ul class="options-list">
+                                <li>
+                            <label><input type="radio" name="question_49" value="A"> (A) Postpone the launch date by two weeks</label>
+                        </li>
+                                    <li>
+                            <label><input type="radio" name="question_49" value="B"> (B) Host several tool training workshops next week</label>
+                        </li>
+                                    <li>
+                            <label><input type="radio" name="question_49" value="C"> (C) Provide a paper alternative for reports</label>
+                        </li>
+                                    <li>
+                            <label><input type="radio" name="question_49" value="D"> (D) Hire temporary administrative assistants</label>
+                        </li>
+                                </ul>
+                    <div class="feedback-box" id="feedback-49" data-correct="B">
+                        <strong>Correction :</strong> Correct Answer is <span class="correct-answer-highlight">(B)</span>.<br>
+                        <span style="color: #4a5568; font-style: italic;">Context: He provides reassurance by stating management has scheduled several training workshops next week.</span>
+                    </div>
+                </div>
+                    </div>
+        </div>
+    
+        <div class="question-block">
+            <div class="reference-title">Questions 50-52 refer to the following conversation.</div>
+            <div class="questions-grid">
+    
+                <div class="question-element" id="q-box-50">
+                    <div class="question-text">50. Why is the caller unable to complete the delivery?</div>
+                    <ul class="options-list">
+                                <li>
+                            <label><input type="radio" name="question_50" value="A"> (A) The delivery truck has a flat tire.</label>
+                        </li>
+                                    <li>
+                            <label><input type="radio" name="question_50" value="B"> (B) The loading dock security gate is locked.</label>
+                        </li>
+                                    <li>
+                            <label><input type="radio" name="question_50" value="C"> (C) The shipping address provided is incorrect.</label>
+                        </li>
+                                    <li>
+                            <label><input type="radio" name="question_50" value="D"> (D) There is no invoice attached to the crates.</label>
+                        </li>
+                                </ul>
+                    <div class="feedback-box" id="feedback-50" data-correct="B">
+                        <strong>Correction :</strong> Correct Answer is <span class="correct-answer-highlight">(B)</span>.<br>
+                        <span style="color: #4a5568; font-style: italic;">Context: The delivery courier states that the primary loading dock security gate is locked shut.</span>
+                    </div>
+                </div>
+        
+                <div class="question-element" id="q-box-51">
+                    <div class="question-text">51. According to the woman, why is the gate closed?</div>
+                    <ul class="options-list">
+                                <li>
+                            <label><input type="radio" name="question_51" value="A"> (A) The regular dock manager is out sick today.</label>
+                        </li>
+                                    <li>
+                            <label><input type="radio" name="question_51" value="B"> (B) The facility is undergoing structural repairs.</label>
+                        </li>
+                                    <li>
+                            <label><input type="radio" name="question_51" value="C"> (C) A power outage affected the electronic gates.</label>
+                        </li>
+                                    <li>
+                            <label><input type="radio" name="question_51" value="D"> (D) The loading dock is reserved for client vehicles.</label>
+                        </li>
+                                </ul>
+                    <div class="feedback-box" id="feedback-51" data-correct="A">
+                        <strong>Correction :</strong> Correct Answer is <span class="correct-answer-highlight">(A)</span>.<br>
+                        <span style="color: #4a5568; font-style: italic;">Context: She notes that the regular facility dock manager is away on sick leave today.</span>
+                    </div>
+                </div>
+        
+                <div class="question-element" id="q-box-52">
+                    <div class="question-text">52. What does the woman promise to do?</div>
+                    <ul class="options-list">
+                                <li>
+                            <label><input type="radio" name="question_52" value="A"> (A) Sign the delivery receipt immediately</label>
+                        </li>
+                                    <li>
+                            <label><input type="radio" name="question_52" value="B"> (B) Pay an extra delivery surcharge fee</label>
+                        </li>
+                                    <li>
+                            <label><input type="radio" name="question_52" value="C"> (C) Contact building maintenance to unlock the gate</label>
+                        </li>
+                                    <li>
+                            <label><input type="radio" name="question_52" value="D"> (D) Help uncrate the office supplies</label>
+                        </li>
+                                </ul>
+                    <div class="feedback-box" id="feedback-52" data-correct="C">
+                        <strong>Correction :</strong> Correct Answer is <span class="correct-answer-highlight">(C)</span>.<br>
+                        <span style="color: #4a5568; font-style: italic;">Context: She states she will call building maintenance staff right away to unlock the gate access.</span>
+                    </div>
+                </div>
+                    </div>
+        </div>
+    
+        <div class="question-block">
+            <div class="reference-title">Questions 53-55 refer to the following conversation.</div>
+            <div class="questions-grid">
+    
+                <div class="question-element" id="q-box-53">
+                    <div class="question-text">53. What project are the speakers working on?</div>
+                    <ul class="options-list">
+                                <li>
+                            <label><input type="radio" name="question_53" value="A"> (A) A downtown commercial shopping mall</label>
+                        </li>
+                                    <li>
+                            <label><input type="radio" name="question_53" value="B"> (B) A new library facility addition</label>
+                        </li>
+                                    <li>
+                            <label><input type="radio" name="question_53" value="C"> (C) A multi-story parking garage building</label>
+                        </li>
+                                    <li>
+                            <label><input type="radio" name="question_53" value="D"> (D) A riverside public park walkway</label>
+                        </li>
+                                </ul>
+                    <div class="feedback-box" id="feedback-53" data-correct="B">
+                        <strong>Correction :</strong> Correct Answer is <span class="correct-answer-highlight">(B)</span>.<br>
+                        <span style="color: #4a5568; font-style: italic;">Context: The speakers explicitly track blueprints concerning the new structural library facility expansion.</span>
+                    </div>
+                </div>
+        
+                <div class="question-element" id="q-box-54">
+                    <div class="question-text">54. What issue did Linda find in the blueprints?</div>
+                    <ul class="options-list">
+                                <li>
+                            <label><input type="radio" name="question_54" value="A"> (A) The main entrance is too narrow for wheelchair access.</label>
+                        </li>
+                                    <li>
+                            <label><input type="radio" name="question_54" value="B"> (B) There are not enough electrical outlets near tables.</label>
+                        </li>
+                                    <li>
+                            <label><input type="radio" name="question_54" value="C"> (C) The emergency exit doors are missing entirely.</label>
+                        </li>
+                                    <li>
+                            <label><input type="radio" name="question_54" value="D"> (D) The ceiling height does not meet safety standards.</label>
+                        </li>
+                                </ul>
+                    <div class="feedback-box" id="feedback-54" data-correct="B">
+                        <strong>Correction :</strong> Correct Answer is <span class="correct-answer-highlight">(B)</span>.<br>
+                        <span style="color: #4a5568; font-style: italic;">Context: Linda discovers that there are an insufficient number of power outlets near the reading desks.</span>
+                    </div>
+                </div>
+        
+                <div class="question-element" id="q-box-55">
+                    <div class="question-text">55. What will Linda do next?</div>
+                    <ul class="options-list">
+                                <li>
+                            <label><input type="radio" name="question_55" value="A"> (A) Present the blueprints to city council members</label>
+                        </li>
+                                    <li>
+                            <label><input type="radio" name="question_55" value="B"> (B) Order extra power cables for the library</label>
+                        </li>
+                                    <li>
+                            <label><input type="radio" name="question_55" value="C"> (C) Write a formal memo with design notes</label>
+                        </li>
+                                    <li>
+                            <label><input type="radio" name="question_55" value="D"> (D) Schedule a site visit with the contractor</label>
+                        </li>
+                                </ul>
+                    <div class="feedback-box" id="feedback-55" data-correct="C">
+                        <strong>Correction :</strong> Correct Answer is <span class="correct-answer-highlight">(C)</span>.<br>
+                        <span style="color: #4a5568; font-style: italic;">Context: Linda intends to document these discrepancies in a detailed structural memo with design notes.</span>
+                    </div>
+                </div>
+                    </div>
+        </div>
+    
+        <div class="question-block">
+            <div class="reference-title">Questions 56-58 refer to the following conversation.</div>
+            <div class="questions-grid">
+    
+                <div class="question-element" id="q-box-56">
+                    <div class="question-text">56. Why is the man contacting Oakwood Catering?</div>
+                    <ul class="options-list">
+                                <li>
+                            <label><input type="radio" name="question_56" value="A"> (A) To apply for a temporary cook job opening</label>
+                        </li>
+                                    <li>
+                            <label><input type="radio" name="question_56" value="B"> (B) To get a price quote for a corporate dinner</label>
+                        </li>
+                                    <li>
+                            <label><input type="radio" name="question_56" value="C"> (C) To file a complaint about a previous order</label>
+                        </li>
+                                    <li>
+                            <label><input type="radio" name="question_56" value="D"> (D) To request a venue tour of the banquet hall</label>
+                        </li>
+                                </ul>
+                    <div class="feedback-box" id="feedback-56" data-correct="B">
+                        <strong>Correction :</strong> Correct Answer is <span class="correct-answer-highlight">(B)</span>.<br>
+                        <span style="color: #4a5568; font-style: italic;">Context: The man is seeking a comprehensive pricing package quote for hosting an upcoming corporate dinner.</span>
+                    </div>
+                </div>
+        
+                <div class="question-element" id="q-box-57">
+                    <div class="question-text">57. What price is mentioned for the standard package?</div>
+                    <ul class="options-list">
+                                <li>
+                            <label><input type="radio" name="question_57" value="A"> (A) $25 per person</label>
+                        </li>
+                                    <li>
+                            <label><input type="radio" name="question_57" value="B"> (B) $30 per person</label>
+                        </li>
+                                    <li>
+                            <label><input type="radio" name="question_57" value="C"> (C) $35 per person</label>
+                        </li>
+                                    <li>
+                            <label><input type="radio" name="question_57" value="D"> (D) $40 per person</label>
+                        </li>
+                                </ul>
+                    <div class="feedback-box" id="feedback-57" data-correct="C">
+                        <strong>Correction :</strong> Correct Answer is <span class="correct-answer-highlight">(C)</span>.<br>
+                        <span style="color: #4a5568; font-style: italic;">Context: The catering representative specifies that their standard tier pricing is $35 per individual guest.</span>
+                    </div>
+                </div>
+        
+                <div class="question-element" id="q-box-58">
+                    <div class="question-text">58. What does the man plan to do this afternoon?</div>
+                    <ul class="options-list">
+                                <li>
+                            <label><input type="radio" name="question_58" value="A"> (A) Finalize the booking payment online</label>
+                        </li>
+                                    <li>
+                            <label><input type="radio" name="question_58" value="B"> (B) Review menu selections with a planning committee</label>
+                        </li>
+                                    <li>
+                            <label><input type="radio" name="question_58" value="C"> (C) Send out invitations to the 75 guests</label>
+                        </li>
+                                    <li>
+                            <label><input type="radio" name="question_58" value="D"> (D) Call the caterer back to change dates</label>
+                        </li>
+                                </ul>
+                    <div class="feedback-box" id="feedback-58" data-correct="B">
+                        <strong>Correction :</strong> Correct Answer is <span class="correct-answer-highlight">(B)</span>.<br>
+                        <span style="color: #4a5568; font-style: italic;">Context: He states he must present and review these menu options with the internal steering planning committee.</span>
+                    </div>
+                </div>
+                    </div>
+        </div>
+    
+        <div class="question-block">
+            <div class="reference-title">Questions 59-61 refer to the following conversation.</div>
+            <div class="questions-grid">
+    
+                <div class="question-element" id="q-box-59">
+                    <div class="question-text">59. What task is the woman working on?</div>
+                    <ul class="options-list">
+                                <li>
+                            <label><input type="radio" name="question_59" value="A"> (A) Creating an annual budget report spreadsheet</label>
+                        </li>
+                                    <li>
+                            <label><input type="radio" name="question_59" value="B"> (B) Preparing training materials for new interns</label>
+                        </li>
+                                    <li>
+                            <label><input type="radio" name="question_59" value="C"> (C) Updating the company's public website content</label>
+                        </li>
+                                    <li>
+                            <label><input type="radio" name="question_59" value="D"> (D) Organizing an office holiday party event</label>
+                        </li>
+                                </ul>
+                    <div class="feedback-box" id="feedback-59" data-correct="B">
+                        <strong>Correction :</strong> Correct Answer is <span class="correct-answer-highlight">(B)</span>.<br>
+                        <span style="color: #4a5568; font-style: italic;">Context: The woman is assembling and preparing training packets and handbooks for incoming summer interns.</span>
+                    </div>
+                </div>
+        
+                <div class="question-element" id="q-box-60">
+                    <div class="question-text">60. Why is the employee handbook unavailable on the server?</div>
+                    <ul class="options-list">
+                                <li>
+                            <label><input type="radio" name="question_60" value="A"> (A) It was accidentally deleted by an assistant.</label>
+                        </li>
+                                    <li>
+                            <label><input type="radio" name="question_60" value="B"> (B) The HR department is currently revising it.</label>
+                        </li>
+                                    <li>
+                            <label><input type="radio" name="question_60" value="C"> (C) The server is down for network maintenance.</label>
+                        </li>
+                                    <li>
+                            <label><input type="radio" name="question_60" value="D"> (D) It requires a senior executive password access.</label>
+                        </li>
+                                </ul>
+                    <div class="feedback-box" id="feedback-60" data-correct="B">
+                        <strong>Correction :</strong> Correct Answer is <span class="correct-answer-highlight">(B)</span>.<br>
+                        <span style="color: #4a5568; font-style: italic;">Context: David informs her that the HR department is currently making extensive content revisions.</span>
+                    </div>
+                </div>
+        
+                <div class="question-element" id="q-box-61">
+                    <div class="question-text">61. What workaround solution does David suggest?</div>
+                    <ul class="options-list">
+                                <li>
+                            <label><input type="radio" name="question_61" value="A"> (A) Delaying the internship start date by one week</label>
+                        </li>
+                                    <li>
+                            <label><input type="radio" name="question_61" value="B"> (B) Sending a digital PDF version via email link</label>
+                        </li>
+                                    <li>
+                            <label><input type="radio" name="question_61" value="C"> (C) Distributing the updated page later as an insert</label>
+                        </li>
+                                    <li>
+                            <label><input type="radio" name="question_61" value="D"> (D) Using last year's handbook without changes</label>
+                        </li>
+                                </ul>
+                    <div class="feedback-box" id="feedback-61" data-correct="C">
+                        <strong>Correction :</strong> Correct Answer is <span class="correct-answer-highlight">(C)</span>.<br>
+                        <span style="color: #4a5568; font-style: italic;">Context: David suggests printing the updated handbook guidelines later and inserting them as loose pages.</span>
+                    </div>
+                </div>
+                    </div>
+        </div>
+    
+        <div class="question-block">
+            <div class="reference-title">Questions 62-64 refer to the following conversation.</div>
+            <div class="questions-grid">
+    
+                <div class="question-element" id="q-box-62">
+                    <div class="question-text">62. What problem does the customer describe?</div>
+                    <ul class="options-list">
+                                <li>
+                            <label><input type="radio" name="question_62" value="A"> (A) The watch screen is cracked and scratched.</label>
+                        </li>
+                                    <li>
+                            <label><input type="radio" name="question_62" value="B"> (B) The battery only holds a charge for two hours.</label>
+                        </li>
+                                    <li>
+                            <label><input type="radio" name="question_62" value="C"> (C) The device will not sync with her smartphone.</label>
+                        </li>
+                                    <li>
+                            <label><input type="radio" name="question_62" value="D"> (D) The wrist strap is too small for her.</label>
+                        </li>
+                                </ul>
+                    <div class="feedback-box" id="feedback-62" data-correct="B">
+                        <strong>Correction :</strong> Correct Answer is <span class="correct-answer-highlight">(B)</span>.<br>
+                        <span style="color: #4a5568; font-style: italic;">Context: The customer complains that her smartwatch battery drains rapidly, holding a charge for only two hours.</span>
+                    </div>
+                </div>
+        
+                <div class="question-element" id="q-box-63">
+                    <div class="question-text">63. What does the store employee ask the customer for?</div>
+                    <ul class="options-list">
+                                <li>
+                            <label><input type="radio" name="question_63" value="A"> (A) Her store membership loyalty card ID</label>
+                        </li>
+                                    <li>
+                            <label><input type="radio" name="question_63" value="B"> (B) Her photo ID and credit card details</label>
+                        </li>
+                                    <li>
+                            <label><input type="radio" name="question_63" value="C"> (C) The purchase receipt and original packaging</label>
+                        </li>
+                                    <li>
+                            <label><input type="radio" name="question_63" value="D"> (D) A warranty certificate from the manufacturer</label>
+                        </li>
+                                </ul>
+                    <div class="feedback-box" id="feedback-63" data-correct="C">
+                        <strong>Correction :</strong> Correct Answer is <span class="correct-answer-highlight">(C)</span>.<br>
+                        <span style="color: #4a5568; font-style: italic;">Context: The employee requests 'the original purchase receipt and the packaging' to facilitate processing.</span>
+                    </div>
+                </div>
+        
+                <div class="question-element" id="q-box-64">
+                    <div class="question-text">64. What resolution does the customer prefer?</div>
+                    <ul class="options-list">
+                                <li>
+                            <label><input type="radio" name="question_64" value="A"> (A) A full refund back to her credit card</label>
+                        </li>
+                                    <li>
+                            <label><input type="radio" name="question_64" value="B"> (B) Store credit to buy a different gadget</label>
+                        </li>
+                                    <li>
+                            <label><input type="radio" name="question_64" value="C"> (C) An exchange for the exact same watch model</label>
+                        </li>
+                                    <li>
+                            <label><input type="radio" name="question_64" value="D"> (D) Having the item repaired by a specialist technician</label>
+                        </li>
+                                </ul>
+                    <div class="feedback-box" id="feedback-64" data-correct="C">
+                        <strong>Correction :</strong> Correct Answer is <span class="correct-answer-highlight">(C)</span>.<br>
+                        <span style="color: #4a5568; font-style: italic;">Context: The client states she prefers a direct product swap or exchange for the identical watch model.</span>
+                    </div>
+                </div>
+                    </div>
+        </div>
+    
+        <div class="section-break">Visual Stimuli & Graphics Section (Questions 65–70)</div>
+
+        <!-- Questions 65-67 -->
+        <div class="question-block">
+            <div class="reference-title">Questions 65-67 refer to the following conversation and floor plan.</div>
+            <a href="https://drive.google.com/file/d/18gs3rPOSDk_5lnW-2f6xIybtJOIGoapT/view?usp=sharing" target="_blank" class="stimulus-btn">
+                🖼️ Click to View Office Floor Plan (Drive Image for Q65-67)
+            </a>
+
+            <div class="questions-grid">
+                <div class="question-element" id="q-box-65">
+                    <div class="question-text">65. What has the company decided to do?</div>
+                    <ul class="options-list">
+                        <li><label><input type="radio" name="question_65" value="A"> (A) Relocate to a completely new city</label></li>
+                        <li><label><input type="radio" name="question_65" value="B"> (B) Undertake office renovations</label></li>
+                        <li><label><input type="radio" name="question_65" value="C"> (C) Hire external design consultants</label></li>
+                        <li><label><input type="radio" name="question_65" value="D"> (D) Cut down the break rooms space</label></li>
+                    </ul>
+                    <div class="feedback-box" id="feedback-65" data-correct="B">
+                        <strong>Correction :</strong> Correct Answer is <span class="correct-answer-highlight">(B)</span>.<br>
+                        <span style="color: #4a5568; font-style: italic;">Context: The woman says 'do you have time to discuss the upcoming office renovations?'.</span>
+                    </div>
+                </div>
+
+                <div class="question-element" id="q-box-66">
+                    <div class="question-text">66. According to the speakers, why has the company made this decision?</div>
+                    <ul class="options-list">
+                        <li><label><input type="radio" name="question_66" value="A"> (A) To reduce rent payments</label></li>
+                        <li><label><input type="radio" name="question_66" value="B"> (B) To encourage employees to work in teams</label></li>
+                        <li><label><input type="radio" name="question_66" value="C"> (C) To impress international business clients</label></li>
+                        <li><label><input type="radio" name="question_66" value="D"> (D) To comply with workplace safety laws</label></li>
+                    </ul>
+                    <div class="feedback-box" id="feedback-66" data-correct="B">
+                        <strong>Correction :</strong> Correct Answer is <span class="correct-answer-highlight">(B)</span>.<br>
+                        <span style="color: #4a5568; font-style: italic;">Context: She notes 'We wanted an office like this because it encourages employees to work in teams'.</span>
+                    </div>
+                </div>
+
+                <div class="question-element" id="q-box-67">
+                    <div class="question-text">67. Look at the graphic. Which table does the man want to replace?</div>
+                    <ul class="options-list">
+                        <li><label><input type="radio" name="question_67" value="A"> (A) Table 1</label></li>
+                        <li><label><input type="radio" name="question_67" value="B"> (B) Table 2</label></li>
+                        <li><label><input type="radio" name="question_67" value="C"> (C) Table 3</label></li>
+                        <li><label><input type="radio" name="question_67" value="D"> (D) Table 4</label></li>
+                    </ul>
+                    <div class="feedback-box" id="feedback-67" data-correct="A">
+                        <strong>Correction :</strong> Correct Answer is <span class="correct-answer-highlight">(A)</span>.<br>
+                        <span style="color: #4a5568; font-style: italic;">Context: The transcript states 'we probably shouldn't have a big table so close to the door. Let's have a smaller table there instead.' Table 1 is closest to the entrance door.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Questions 68-70 -->
+        <div class="question-block">
+            <div class="reference-title">Questions 68-70 refer to the following conversation and map.</div>
+            <a href="https://drive.google.com/file/d/1xCDM81ll8G5IcAP5bz9xZveU_nfJcyBZ/view?usp=sharing" target="_blank" class="stimulus-btn">
+                🗺️ Click to View Conference Center Map (Drive Image for Q68-70)
+            </a>
+
+            <div class="questions-grid">
+                <div class="question-element" id="q-box-68">
+                    <div class="question-text">68. What has the woman lost?</div>
+                    <ul class="options-list">
+                        <li><label><input type="radio" name="question_68" value="A"> (A) A conference program pamphlet</label></li>
+                        <li><label><input type="radio" name="question_68" value="B"> (B) Her sunglasses</label></li>
+                        <li><label><input type="radio" name="question_68" value="C"> (C) A map of the convention center</label></li>
+                        <li><label><input type="radio" name="question_68" value="D"> (D) Her credit card</label></li>
+                    </ul>
+                    <div class="feedback-box" id="feedback-68" data-correct="B">
+                        <strong>Correction :</strong> Correct Answer is <span class="correct-answer-highlight">(B)</span>.<br>
+                        <span style="color: #4a5568; font-style: italic;">Context: The woman says 'I attended a session in this room this morning and left my sunglasses in here.'</span>
+                    </div>
+                </div>
+
+                <div class="question-element" id="q-box-69">
+                    <div class="question-text">69. Where most likely are the speakers?</div>
+                    <ul class="options-list">
+                        <li><label><input type="radio" name="question_69" value="A"> (A) At a university campus bookstore</label></li>
+                        <li><label><input type="radio" name="question_69" value="B"> (B) At a professional conference center</label></li>
+                        <li><label><input type="radio" name="question_69" value="C"> (C) Inside a downtown restaurant</label></li>
+                        <li><label><input type="radio" name="question_69" value="D"> (D) At a tourist information desk</label></li>
+                    </ul>
+                    <div class="feedback-box" id="feedback-69" data-correct="B">
+                        <strong>Correction :</strong> Correct Answer is <span class="correct-answer-highlight">(B)</span>.<br>
+                        <span style="color: #4a5568; font-style: italic;">Context: They talk about the 'conference program' and 'conference center lobby'.</span>
+                    </div>
+                </div>
+
+                <div class="question-element" id="q-box-70">
+                    <div class="question-text">70. Look at the graphic. Which area on the map will the woman probably go to next?</div>
+                    <ul class="options-list">
+                        <li><label><input type="radio" name="question_70" value="A"> (A) Area [A]</label></li>
+                        <li><label><input type="radio" name="question_70" value="B"> (B) Area [B]</label></li>
+                        <li><label><input type="radio" name="question_70" value="C"> (C) Area [C]</label></li>
+                        <li><label><input type="radio" name="question_70" value="D"> (D) Cafe</label></li>
+                    </ul>
+                    <div class="feedback-box" id="feedback-70" data-correct="B">
+                        <strong>Correction :</strong> Correct Answer is <span class="correct-answer-highlight">(B)</span>.<br>
+                        <span style="color: #4a5568; font-style: italic;">Context: The man explains that the lost and found is 'next to the cafe, across from the stairs', identifying Area [B] on the diagram.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bouton unique de validation finale -->
+        <div class="submit-container">
+            <button type="button" class="submit-btn" onclick="evaluateQuiz()">Submit All Answers</button>
+        </div>
+    </form>
+
+    </div>
+
+    <!-- Moteur d'évaluation JavaScript -->
+    <script>
+        function evaluateQuiz() {
+            const startQ = 32;
+            const endQ = 70;
+            
+            let totalCorrect = 0;
+
+            for (let i = startQ; i <= endQ; i++) {
+                const radios = document.getElementsByName('question_' + i);
+                const feedbackDiv = document.getElementById('feedback-' + i);
+                const questionBox = document.getElementById('q-box-' + i);
+                
+                let selectedValue = null;
+                for (const radio of radios) {
+                    if (radio.checked) {
+                        selectedValue = radio.value;
+                        break;
+                    }
+                }
+
+                if (feedbackDiv) {
+                    const correctAnswer = feedbackDiv.getAttribute('data-correct');
+                    feedbackDiv.style.display = 'block'; // Affiche le volet de correction
+
+                    if (selectedValue === null) {
+                        feedbackDiv.className = 'feedback-box feedback-wrong';
+                        if(questionBox) questionBox.style.borderLeft = "3px solid #e53e3e";
+                    } else {
+                        if (selectedValue === correctAnswer) {
+                            totalCorrect++;
+                            feedbackDiv.className = 'feedback-box feedback-correct';
+                            feedbackDiv.innerHTML = '<strong>✓ Correct!</strong>';
+                            if(questionBox) questionBox.style.borderLeft = "3px solid #38a169";
+                        } else {
+                            feedbackDiv.className = 'feedback-box feedback-wrong';
+                            if(questionBox) questionBox.style.borderLeft = "3px solid #e53e3e";
+                        }
+                    }
+                }
+            }
+
+            alert("Evaluation Complete!\nTotal Correct: " + totalCorrect + " / " + (endQ - startQ + 1));
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
