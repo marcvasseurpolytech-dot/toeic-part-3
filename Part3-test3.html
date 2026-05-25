@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TOEIC Part 3 — Test 3 — Marc VASSEUR — Polytech Lille</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Source+Serif+4:wght@300;400;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy:#0d1b2a; --navy2:#162840; --navy3:#1e3a5f;
+    --gold:#c8993a; --gold-l:#e8b84b;
+    --cream:#f8f4ed; --cream2:#f0ead8; --border:#d4c5a9;
+    --text:#1a1a2e; --muted:#6b7280;
+    --correct:#10b981; --wrong:#ef4444;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Source Serif 4',serif;background:var(--cream);color:var(--text);min-height:100vh;}
+
+  header{
+    background:var(--navy);border-bottom:3px solid var(--gold);
+    box-shadow:0 4px 24px rgba(0,0,0,.35);position:sticky;top:0;z-index:100;
+  }
+  .hdr-inner{
+    max-width:960px;margin:0 auto;padding:20px 32px;
+    display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;
+  }
+  .brand h1{font-family:'Playfair Display',serif;font-size:1.5rem;color:var(--gold-l);letter-spacing:.03em;line-height:1.1;}
+  .brand p{font-family:'JetBrains Mono',monospace;font-size:.72rem;color:#94a3b8;letter-spacing:.1em;margin-top:4px;}
+  .nav-back{font-family:'JetBrains Mono',monospace;font-size:.8rem;color:var(--gold-l);text-decoration:none;border:1px solid var(--gold);padding:6px 14px;border-radius:6px;transition:all .2s;}
+  .nav-back:hover{background:var(--gold);color:var(--navy);}
+
+  main{max-width:960px;margin:0 auto;padding:48px 24px 80px;}
+  
+  /* AUDIO PLAYER COMPONENT */
+  .audio-container {
+    background:white;border:1px solid var(--border);border-radius:12px;padding:24px;margin-bottom:40px;
+    box-shadow:0 4px 16px rgba(0,0,0,.04);
+  }
+  .audio-container h2 {font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--navy);margin-bottom:12px;}
+  .audio-embed {width:100%;height:150px;border:none;border-radius:8px;background:#000;margin-bottom:12px;}
+  .audio-fallback {font-family:'JetBrains Mono',monospace;font-size:.78rem;color:var(--muted);display:flex;gap:8px;align-items:center;}
+  .audio-fallback a {color:var(--navy3);font-weight:600;text-decoration:underline;}
+
+  /* DIRECTIONS */
+  .directions {background:var(--cream2);border-left:4px solid var(--gold);padding:20px;border-radius:0 8px 8px 0;margin-bottom:40px;font-size:.92rem;line-height:1.6;}
+  .directions strong {color:var(--navy);font-family:'Playfair Display',serif;font-size:1.1rem;display:block;margin-bottom:6px;}
+
+  /* CONVERSATION BLOCK */
+  .conv-block {background:white;border:1px solid var(--border);border-radius:12px;padding:32px;margin-bottom:32px;box-shadow:0 4px 16px rgba(0,0,0,.03);}
+  .conv-header {font-family:'JetBrains Mono',monospace;font-size:.78rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:20px;padding-bottom:8px;border-bottom:1px dashed var(--border);}
+  
+  /* GRAPHIC ITEMS INSIDE BLOCKS */
+  .graphic-box {background:var(--cream);border:1px solid var(--border);border-radius:8px;padding:20px;margin:16px 0 24px 0;max-width:450px;}
+  .graphic-title {font-family:'JetBrains Mono',monospace;font-size:.8rem;font-weight:bold;margin-bottom:12px;text-align:center;color:var(--navy);}
+  
+  /* Specific Visuals */
+  .schedule-table {width:100%;border-collapse:collapse;background:white;font-size:.85rem;}
+  .schedule-table th, .schedule-table td {border:1px solid #aaa;padding:8px;text-align:center;}
+  .schedule-table th {background:#eee;font-weight:600;}
+  .highlight-bubble {background:rgba(200,153,58,0.15);border:2px solid var(--gold);border-radius:12px;font-weight:600;color:var(--navy);}
+
+  .it-grid {display:grid;grid-template-columns:1fr 1fr;gap:16px;background:white;padding:16px;border:2px solid #555;border-radius:4px;}
+  .it-item {display:flex;align-items:center;gap:12px;font-family:'JetBrains Mono',monospace;font-size:1.1rem;font-weight:bold;padding:8px;border:1px dashed #ccc;}
+  .icon-sym {font-size:1.4rem;}
+
+  .price-table {width:100%;border-collapse:collapse;background:white;font-size:.88rem;}
+  .price-table th, .price-table td {border:1px solid var(--border);padding:10px 12px;text-align:left;}
+  .price-table th {background:var(--navy);color:white;}
+  .price-table tr:nth-child(even) {background:var(--cream);}
+
+  /* QUESTIONS & OPTIONS */
+  .question-item {margin-bottom:24px;}
+  .question-item:last-child {margin-bottom:0;}
+  .q-text {font-weight:600;font-size:1rem;color:var(--navy);margin-bottom:12px;display:flex;gap:8px;}
+  .options-list {list-style:none;display:flex;flex-direction:column;gap:8px;}
+  .option-label {
+    display:flex;align-items:center;gap:12px;padding:12px 16px;background:var(--cream);
+    border:1px solid var(--border);border-radius:8px;cursor:pointer;font-size:.92rem;transition:all .15s;
+  }
+  .option-label:hover {background:white;border-color:var(--navy3);}
+  .option-label input {accent-color:var(--navy3);width:16px;height:16px;}
+
+  /* SUBMIT & RESULTS */
+  .actions {text-align:center;margin-top:40px;}
+  .btn-submit {
+    font-family:'JetBrains Mono',monospace;font-size:1rem;font-weight:600;
+    color:white;background:var(--muted);border:none;padding:16px 40px;border-radius:8px;
+    cursor:not-allowed;transition:all-smooth .2s;box-shadow:0 4px 12px rgba(0,0,0,0.1);
+  }
+  .btn-submit.active {background:var(--navy);cursor:pointer;}
+  .btn-submit.active:hover {background:var(--navy3);transform:translateY(-1px);}
+
+  #results-panel {
+    display:none;background:white;border:2px solid var(--gold);border-radius:12px;
+    padding:32px;margin-bottom:40px;box-shadow:0 8px 32px rgba(200,153,58,0.2);
+  }
+  .results-header {text-align:center;margin-bottom:24px;}
+  .score-big {font-family:'Playfair Display',serif;font-size:3rem;color:var(--navy);font-weight:700;}
+  .score-converted {font-family:'JetBrains Mono',monospace;font-size:1.2rem;color:var(--gold);margin-top:4px;font-weight:bold;}
+
+  /* CORRECTION ENGINE STYLING */
+  .correction-box {margin-top:20px;padding:20px;border-top:1px solid #e5e7eb;background:#f9fafb;border-radius:8px;display:none;}
+  .transcript-quote {font-style:italic;color:var(--navy2);border-left:3px solid var(--border);padding-left:12px;margin-bottom:12px;font-size:.9rem;}
+  .explanation-fr {font-size:.9rem;line-height:1.6;margin-bottom:12px;color:#374151;}
+  .vocab-box {font-family:'JetBrains Mono',monospace;font-size:.78rem;background:#f3f4f6;padding:10px 14px;border-radius:6px;border:1px solid #e5e7eb;color:#4b5563;}
+
+  /* Feedback colors post-submit */
+  .option-label.correct-ans {background:#d1fae5 !important;border-color:var(--correct) !important;color:#065f46;font-weight:600;}
+  .option-label.wrong-ans {background:#fee2e2 !important;border-color:var(--wrong) !important;color:#991b1b;}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="hdr-inner">
+    <div class="brand">
+      <h1>TOEIC Practice Suite — Listening</h1>
+      <p>MARC VASSEUR &nbsp;·&nbsp; POLYTECH LILLE</p>
+    </div>
+    <a href="index.html" class="nav-back">← Retour à l'index</a>
+  </div>
+</header>
+
+<main>
+  <div class="audio-container">
+    <h2>Support Audio du Test</h2>
+    <iframe class="audio-embed" src="https://drive.google.com/file/d/18ER52xi0x4pQxk565mM1J8hWddBB-gng/preview" allow="autoplay"></iframe>
+    <div class="audio-fallback">
+      <span>Si le lecteur ne s'affiche pas correctement :</span>
+      <a href="https://drive.google.com/file/d/18ER52xi0x4pQxk565mM1J8hWddBB-gng/view?usp=sharing" target="_blank">Ouvrir l'audio directement dans Google Drive ↗</a>
+    </div>
+  </div>
+
+  <div class="directions">
+    <strong>Directions:</strong> You will hear some conversations between two or more people. You will be asked to answer three questions about what the speakers say in each conversation. Select the best response to each question and mark the letter (A), (B), (C), or (D) on your answer sheet. The conversations will not be printed in your test book and will be spoken only one time.
+  </div>
+
+  <div id="results-panel">
+    <div class="results-header">
+      <div class="score-big">Score : <span id="user-score">0</span> / 13</div>
+      <div class="score-converted">Estimation Section Listening : <span id="converted-score">--</span> / 495</div>
+      <p style="margin-top:10px; color:var(--muted); font-size:0.9rem;">Retrouvez ci-dessous la correction détaillée de chaque question pour cibler vos axes de progression.</p>
+    </div>
+  </div>
+
+  <form id="toeic-form">
+    <div class="conv-block" data-block="1">
+      <div class="conv-header">Questions 32 through 34 refer to the following conversation</div>
+      
+      <div class="question-item" data-q="32">
+        <div class="q-text"><span>32.</span> What kind of business did the woman call?</div>
+        <ul class="options-list">
+          <li><label class="option-label"><input type="radio" name="q32" value="A"> (A) A furniture store</label></li>
+          <li><label class="option-label"><input type="radio" name="q32" value="B"> (B) A cleaning company</label></li>
+          <li><label class="option-label"><input type="radio" name="q32" value="C"> (C) A carpet factory</label></li>
+          <li><label class="option-label"><input type="radio" name="q32" value="D"> (D) An employment agency</label></li>
+        </ul>
+        <div class="correction-box">
+          <div class="transcript-quote">"You left us a message about cleaning services? Yes, thank you. I've just bought a property... I'll need to have all the floors washed with an industrial cleaner."</div>
+          <div class="explanation-fr"><strong>Explication :</strong> L'interlocuteur mentionne que la femme a laissé un message concernant des « services de nettoyage » (cleaning services) et celle-ci confirme vouloir faire laver ses sols avec un produit industriel. Il s'agit donc d'une entreprise de nettoyage.</div>
+          <div class="vocab-box">cleaning services : services de nettoyage · floor washing : lavage des sols</div>
+        </div>
+      </div>
+
+      <div class="question-item" data-q="33">
+        <div class="q-text"><span>33.</span> What does the woman say she did recently?</div>
+        <ul class="options-list">
+          <li><label class="option-label"><input type="radio" name="q33" value="A"> (A) She hired some employees.</label></li>
+          <li><label class="option-label"><input type="radio" name="q33" value="B"> (B) She opened an account.</label></li>
+          <li><label class="option-label"><input type="radio" name="q33" value="C"> (C) She purchased a property.</label></li>
+          <li><label class="option-label"><input type="radio" name="q33" value="D"> (D) She filed an application.</label></li>
+        </ul>
+        <div class="correction-box">
+          <div class="transcript-quote">"I've just bought a property that I'm converting into a bed and breakfast."</div>
+          <div class="explanation-fr"><strong>Explication :</strong> La femme utilise explicitement l'expression « I've just bought a property » (Je viens d'acheter une propriété), ce qui équivaut sémantiquement à « purchased a property ». Piège : elle mentionne vouloir en faire un gîte (bed and breakfast), pas une agence.</div>
+          <div class="vocab-box">to buy / purchase : acheter · property : un bien immobilier / propriété</div>
+        </div>
+      </div>
+
+      <div class="question-item" data-q="34">
+        <div class="q-text"><span>34.</span> What information does the man ask for?</div>
+        <ul class="options-list">
+          <li><label class="option-label"><input type="radio" name="q34" value="A"> (A) A location</label></li>
+          <li><label class="option-label"><input type="radio" name="q34" value="B"> (B) A size</label></li>
+          <li><label class="option-label"><input type="radio" name="q34" value="C"> (C) A price</label></li>
+          <li><label class="option-label"><input type="radio" name="q34" value="D"> (D) A material</label></li>
+        </ul>
+        <div class="correction-box">
+          <div class="transcript-quote">"The price depends on the size of the property. Can you tell me the square footage?"</div>
+          <div class="explanation-fr"><strong>Explication :</strong> L'homme indique que le tarif dépend de la taille de la structure et demande directement le « square footage » (la superficie en pieds carrés). Il s'agit donc d'une dimension / taille (size).</div>
+          <div class="vocab-box">square footage : superficie / surface (en pi²) · size : taille / dimensions</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="conv-block" data-block="2">
+      <div class="conv-header">Questions 35 through 37 refer to the following conversation</div>
+      
+      <div class="question-item" data-q="35">
+        <div class="q-text"><span>35.</span> What industry do the speakers most likely work in?</div>
+        <ul class="options-list">
+          <li><label class="option-label"><input type="radio" name="q35" value="A"> (A) Accounting</label></li>
+          <li><label class="option-label"><input type="radio" name="q35" value="B"> (B) Finance</label></li>
+          <li><label class="option-label"><input type="radio" name="q35" value="C"> (C) Advertising</label></li>
+          <li><label class="option-label"><input type="radio" name="q35" value="D"> (D) Agriculture</label></li>
+        </ul>
+        <div class="correction-box">
+          <div class="transcript-quote">"Some customers at the farm store have asked about our website. I usually update it daily with the amount of fresh eggs and milk we have available."</div>
+          <div class="explanation-fr"><strong>Explication :</strong> La mention d'un « magasin à la ferme » (farm store) ainsi que de la production quotidienne de « lait et d'œufs frais » (fresh eggs and milk) pointe de manière indubitable vers le secteur de l'agriculture.</div>
+          <div class="vocab-box">farm store : magasin de producteurs / à la ferme · fresh eggs & milk : œufs et lait frais</div>
+        </div>
+      </div>
+
+      <div class="question-item" data-q="36">
+        <div class="q-text"><span>36.</span> What problem are the speakers discussing?</div>
+        <ul class="options-list">
+          <li><label class="option-label"><input type="radio" name="q36" value="A"> (A) A printing order has been delayed.</label></li>
+          <li><label class="option-label"><input type="radio" name="q36" value="B"> (B) Some prices have increased.</label></li>
+          <li><label class="option-label"><input type="radio" name="q36" value="C"> (C) A Web page feature is unavailable.</label></li>
+          <li><label class="option-label"><input type="radio" name="q36" value="D"> (D) A vendor has sold out of a product.</label></li>
+        </ul>
+        <div class="correction-box">
+          <div class="transcript-quote">"I was having trouble getting our online shop page to work properly. Credit card payments weren't going through..."</div>
+          <div class="explanation-fr"><strong>Explication :</strong> L'interlocuteur explique qu'il rencontre des difficultés techniques avec la page de la boutique en ligne car les règlements par carte bancaire échouent. Une fonctionnalité du site web est donc temporairement indisponible (Web page feature is unavailable).</div>
+          <div class="vocab-box">to work properly : fonctionner correctement · to go through : (ici) être validé / passer</div>
+        </div>
+      </div>
+
+      <div class="question-item" data-q="37">
+        <div class="q-text"><span>37.</span> Why does the woman mention an upcoming article?</div>
+        <ul class="options-list">
+          <li><label class="option-label"><input type="radio" name="q37" value="A"> (A) To discuss new product ideas</label></li>
+          <li><label class="option-label"><input type="radio" name="q37" value="B"> (B) To emphasize a deadline</label></li>
+          <li><label class="option-label"><input type="radio" name="q37" value="C"> (C) To request copies</label></li>
+          <li><label class="option-label"><input type="radio" name="q37" value="D"> (D) To congratulate a colleague</label></li>
+        </ul>
+        <div class="correction-box">
+          <div class="transcript-quote">"We definitely want it up in time for our mention in the Tucson Farmer magazine. That article is coming out next week."</div>
+          <div class="explanation-fr"><strong>Explication :</strong> La femme insiste sur la nécessité absolue que le site soit fonctionnel « à temps » (in time) pour la publication de l'article la semaine suivante. Elle met ainsi l'accent sur une contrainte de temps, une date butoir (to emphasize a deadline).</div>
+          <div class="vocab-box">in time for : à temps pour · coming out : qui est publié / sortira · deadline : date butoir</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="conv-block" data-block="3">
+      <div class="conv-header">Questions 38 through 40 refer to the following conversation with three speakers</div>
+      
+      <div class="question-item" data-q="38">
+        <div class="q-text"><span>38.</span> Where do the men work?</div>
+        <ul class="options-list">
+          <li><label class="option-label"><input type="radio" name="q38" value="A"> (A) At a publishing firm</label></li>
+          <li><label class="option-label"><input type="radio" name="q38" value="B"> (B) At a public library</label></li>
+          <li><label class="option-label"><input type="radio" name="q38" value="C"> (C) At a technology company</label></li>
+          <li><label class="option-label"><input type="radio" name="q38" value="D"> (D) At an employment agency</label></li>
+        </ul>
+        <div class="correction-box">
+          <div class="transcript-quote">"This is Omar Khan from Penville Publishers. We're excited about publishing your manuscript."</div>
+          <div class="explanation-fr"><strong>Explication :</strong> L'un des hommes se présente comme travaillant chez « Penville Publishers » et exprime sa joie de publier le « manuscrit » de l'autrice. Il s'agit donc d'une maison d'édition (publishing firm).</div>
+          <div class="vocab-box">publishers / publishing firm : maison d'édition · manuscript : manuscrit</div>
+        </div>
+      </div>
+
+      <div class="question-item" data-q="39">
+        <div class="q-text"><span>39.</span> What did the woman recently send to the men?</div>
+        <ul class="options-list">
+          <li><label class="option-label"><input type="radio" name="q39" value="A"> (A) A passport photograph</label></li>
+          <li><label class="option-label"><input type="radio" name="q39" value="B"> (B) An updated resume</label></li>
+          <li><label class="option-label"><input type="radio" name="q39" value="C"> (C) A signed contract</label></li>
+          <li><label class="option-label"><input type="radio" name="q39" value="D"> (D) A newspaper article</label></li>
+        </ul>
+        <div class="correction-box">
+          <div class="transcript-quote">"I just sent the signed contract yesterday. Did you receive it? Yes, it came in the mail today."</div>
+          <div class="explanation-fr"><strong>Explication :</strong> L'autrice demande si l'équipe a reçu le « contrat signé » (signed contract) expédié la veille, ce que l'éditeur valide instantanément.</div>
+          <div class="vocab-box">signed contract : contrat signé · in the mail : par courrier informatique/postal</div>
+        </div>
+      </div>
+
+      <div class="question-item" data-q="40">
+        <div class="q-text"><span>40.</span> What does Christopher ask the woman to do?</div>
+        <ul class="options-list">
+          <li><label class="option-label"><input type="radio" name="q40" value="A"> (A) Review a schedule</label></li>
+          <li><label class="option-label"><input type="radio" name="q40" value="B"> (B) Provide payment information</label></li>
+          <li><label class="option-label"><input type="radio" name="q40" value="C"> (C) Attend a reception</label></li>
+          <li><label class="option-label"><input type="radio" name="q40" value="D"> (D) Answer some questions</label></li>
+        </ul>
+        <div class="correction-box">
+          <div class="transcript-quote">"To get started, I need to know more about your background... So I'm going to ask you some questions."</div>
+          <div class="explanation-fr"><strong>Explication :</strong> Christopher prend la parole pour collecter des données biographiques en vue du plan de promotion et l'avertit qu'il s'apprête à lui poser des questions (ask you some questions) pendant une quinzaine de minutes.</div>
+          <div class="vocab-box">background : parcours / antécédents · promotional materials : documents promotionnels</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="conv-block" data-block="4">
+      <div class="conv-header">Questions 62 through 64 refer to the following conversation and schedule</div>
+      
+      <div class="graphic-box">
+        <div class="graphic-title">Schedule — P.M. Availability</div>
+        <table class="schedule-table">
+          <tr><th>P.M.</th><th>Wednesday</th><th>Thursday</th><th>Friday</th></tr>
+          <tr><td>1–2</td><td></td><td rowspan="4" class="highlight-bubble">↑<br>Conference<br>↓</td><td></td></tr>
+          <tr><td>2–3</td><td style="border:2px solid #555; border-radius:4px;">Appointment</td><td rowspan="3" class="highlight-bubble">↑<br>Meeting<br>Dr. Singh<br>↓</td></tr>
+          <tr><td>3–4</td><td style="border:2px solid #555; border-radius:4px;">Lab visit</td></tr>
+          <tr><td>4–5</td><td></td></tr>
+        </table>
+      </div>
+
+      <div class="question-item" data-q="62">
+        <div class="q-text"><span>62.</span> How did the man hear about the office?</div>
+        <ul class="options-list">
+          <li><label class="option-label"><input type="radio" name="q62" value="A"> (A) From his previous doctor</label></li>
+          <li><label class="option-label"><input type="radio" name="q62" value="B"> (B) From a coworker</label></li>
+          <li><label class="option-label"><input type="radio" name="q62" value="C"> (C) From a television advertisement</label></li>
+          <li><label class="option-label"><input type="radio" name="q62" value="D"> (D) From a Web site</label></li>
+        </ul>
+        <div class="correction-box">
+          <div class="transcript-quote">"Hi, I just moved to town and my colleague recommended your office."</div>
+          <div class="explanation-fr"><strong>Explication :</strong> Le locuteur masculin mentionne que c'est sa « collègue » (my colleague) qui lui a chaleureusement conseillé ce cabinet de consultation. Le mot « colleague » est un parfait synonyme de « coworker ».</div>
+          <div class="vocab-box">colleague / coworker : collègue de travail · to recommend : recommander</div>
+        </div>
+      </div>
+
+      <div class="question-item" data-q="63">
+        <div class="q-text"><span>63.</span> Look at the graphic. According to the woman, why is Dr. Aziz unavailable?</div>
+        <ul class="options-list">
+          <li><label class="option-label"><input type="radio" name="q63" value="A"> (A) He is seeing a patient.</label></li>
+          <li><label class="option-label"><input type="radio" name="q63" value="B"> (B) He is visiting a lab.</label></li>
+          <li><label class="option-label"><input type="radio" name="q63" value="C"> (C) He is attending a conference.</label></li>
+          <li><label class="option-label"><input type="radio" name="q63" value="D"> (D) He is meeting a colleague.</label></li>
+        </ul>
+        <div class="correction-box">
+          <div class="transcript-quote">"She usually sees Dr. Aziz. Does he have any openings for an appointment on Thursday afternoon? Unfortunately, Dr. Aziz isn't available Thursday..."</div>
+          <div class="explanation-fr"><strong>Explication :</strong> L'homme sollicite spécifiquement un rendez-vous le <strong>jeudi après-midi</strong> avec le Dr. Aziz. En recoupant avec le planning visuel, on observe que toute l'après-midi du jeudi est bloquée par la mention « Conference ». Le médecin participe donc à un congrès.</div>
+          <div class="vocab-box">opening : (ici) un créneau libre · unavailable : indisponible</div>
+        </div>
+      </div>
+
+      <div class="question-item" data-q="64">
+        <div class="q-text"><span>64.</span> What will the man need to do?</div>
+        <ul class="options-list">
+          <li><label class="option-label"><input type="radio" name="q64" value="A"> (A) Complete some forms</label></li>
+          <li><label class="option-label"><input type="radio" name="q64" value="B"> (B) Make a payment</label></li>
+          <li><label class="option-label"><input type="radio" name="q64" value="C"> (C) Check a medical device</label></li>
+          <li><label class="option-label"><input type="radio" name="q64" value="D"> (D) Pick up a prescription</label></li>
+        </ul>
+        <div class="correction-box">
+          <div class="transcript-quote">"Since you're a new patient, you'll need to fill out our new patient forms before your first appointment."</div>
+          <div class="explanation-fr"><strong>Explication :</strong> La secrétaire explique qu'en sa qualité de nouveau consultant, il devra impérativement « remplir des formulaires » (fill out our new patient forms). L'action correspond à « Complete some forms ».</div>
+          <div class="vocab-box">to fill out / complete : renseigner / remplir · forms : formulaires</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="conv-block" data-block="5">
+      <div class="conv-header">Questions 65 through 67 refer to the following conversation and web page</div>
+      
+      <div class="graphic-box">
+        <div class="graphic-title">Enderfay Incorporated — IT Quick Links</div>
+        <div class="it-grid">
+          <div class="it-item">1. <span class="icon-sym">?</span></div>
+          <div class="it-item">2. <span class="icon-sym">✎</span></div>
+          <div class="it-item">3. <span class="icon-sym">⚡</span></div>
+          <div class="it-item">4. <span class="icon-sym">✋</span></div>
+        </div>
+      </div>
+
+      <div class="question-item" data-q="65">
+        <div class="q-text"><span>65.</span> What did the man do this morning?</div>
+        <ul class="options-list">
+          <li><label class="option-label"><input type="radio" name="q65" value="A"> (A) He attended a new-employee orientation.</label></li>
+          <li><label class="option-label"><input type="radio" name="q65" value="B"> (B) He revised the graphics on a Web site.</label></li>
+          <li><label class="option-label"><input type="radio" name="q65" value="C"> (C) He repaired a copy machine.</label></li>
+          <li><label class="option-label"><input type="radio" name="q65" value="D"> (D) He visited a client's office.</label></li>
+        </ul>
+        <div class="correction-box">
+          <div class="transcript-quote">"It's my first day at the company and I just completed the orientation this morning."</div>
+          <div class="explanation-fr"><strong>Explication :</strong> Le nouvel employé indique de vive voix qu'il vient tout juste de terminer sa session d'intégration et d'accueil de bienvenue (« completed the orientation this morning »).</div>
+          <div class="vocab-box">first day : premier jour d'intégration · orientation : session d'accueil / formation initiale</div>
+        </div>
+      </div>
+
+      <div class="question-item" data-q="66">
+        <div class="q-text"><span>66.</span> What does the man need to request?</div>
+        <ul class="options-list">
+          <li><label class="option-label"><input type="radio" name="q66" value="A"> (A) Some financial documents</label></li>
+          <li><label class="option-label"><input type="radio" name="q66" value="B"> (B) Some updated software</label></li>
+          <li><label class="option-label"><input type="radio" name="q66" value="C"> (C) A parking pass</label></li>
+          <li><label class="option-label"><input type="radio" name="q66" value="D"> (D) An access code</label></li>
+        </ul>
+        <div class="correction-box">
+          <div class="transcript-quote">"I was told in the orientation that I'll need a special code in order to use the copy machines... a personal four-digit code."</div>
+          <div class="explanation-fr"><strong>Explication :</strong> Le salarié appelle l'assistance technique pour obtenir un code individuel à quatre chiffres nécessaire au déverrouillage du photocopieur. Un code à 4 chiffres équivaut à un code d'accès (access code).</div>
+          <div class="vocab-box">four-digit code : code à 4 chiffres · copy machine : photocopieuse</div>
+        </div>
+      </div>
+
+      <div class="question-item" data-q="67">
+        <div class="q-text"><span>67.</span> Look at the graphic. Which icon will the man click next?</div>
+        <ul class="options-list">
+          <li><label class="option-label"><input type="radio" name="q67" value="A"> (A) Icon 1</label></li>
+          <li><label class="option-label"><input type="radio" name="q67" value="B"> (B) Icon 2</label></li>
+          <li><label class="option-label"><input type="radio" name="q67" value="C"> (C) Icon 3</label></li>
+          <li><label class="option-label"><input type="radio" name="q67" value="D"> (D) Icon 4</label></li>
+        </ul>
+        <div class="correction-box">
+          <div class="transcript-quote">"If you look at the homepage, you'll see an icon that looks like a lightning bolt. Click on that..."</div>
+          <div class="explanation-fr"><strong>Explication :</strong> L'experte informatique guide l'usager en lui disant de cibler le symbole ressemblant à un éclair (« lightning bolt »). Le visuel montre clairement que l'icône associée au chiffre 3 est un éclair. Il faut donc cliquer sur l'Icon 3.</div>
+          <div class="vocab-box">lightning bolt : éclair / foudre · homepage : page d'accueil d'un site</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="conv-block" data-block="6">
+      <div class="conv-header">Questions 68 through 70 refer to the following conversation and price list</div>
+      
+      <div class="graphic-box">
+        <div class="graphic-title">Vehicle Rental Price List</div>
+        <table class="price-table">
+          <tr><th>Vehicle Type</th><th>Rental Cost per Day</th></tr>
+          <tr><td>Minivan</td><td>$69</td></tr>
+          <tr><td>Sport utility vehicle</td><td>$85</td></tr>
+          <tr><td>Cargo van</td><td>$73</td></tr>
+          <tr><td>Compact sedan</td><td>$57</td></tr>
+        </table>
+      </div>
+
+      <div class="question-item" data-q="68">
+        <div class="q-text"><span>68.</span> Why is the man renting a vehicle?</div>
+        <ul class="options-list">
+          <li><label class="option-label"><input type="radio" name="q68" value="A"> (A) His car broke down.</label></li>
+          <li><label class="option-label"><input type="radio" name="q68" value="B"> (B) His friends are coming to visit.</label></li>
+          <li><label class="option-label"><input type="radio" name="q68" value="C"> (C) He will be moving soon.</label></li>
+          <li><label class="option-label"><input type="radio" name="q68" value="D"> (D) He is going on a trip.</label></li>
+        </ul>
+        <div class="correction-box">
+          <div class="transcript-quote">"Well, I have several friends coming to stay with me this weekend and will need transportation."</div>
+          <div class="explanation-fr"><strong>Explication :</strong> Le client justifie sa location en explicitant qu'il accueille plusieurs amis ce week-end et a besoin d'un moyen de transport adapté pour eux (« friends coming to stay with me »).</div>
+          <div class="vocab-box">coming to stay : venir séjourner / loger · transportation : moyen de transport</div>
+        </div>
+      </div>
+
+      <div class="question-item" data-q="69">
+        <div class="q-text"><span>69.</span> What does the man express concern about?</div>
+        <ul class="options-list">
+          <li><label class="option-label"><input type="radio" name="q69" value="A"> (A) A vehicle's appearance</label></li>
+          <li><label class="option-label"><input type="radio" name="q69" value="B"> (B) A vehicle's fuel efficiency</label></li>
+          <li><label class="option-label"><input type="radio" name="q69" value="C"> (C) A vehicle's rental price</label></li>
+          <li><label class="option-label"><input type="radio" name="q69" value="D"> (D) A vehicle's availability</label></li>
+        </ul>
+        <div class="correction-box">
+          <div class="transcript-quote">"But sport utility vehicles are expensive to rent, aren't they? I'm worried about spending that much money."</div>
+          <div class="explanation-fr"><strong>Explication :</strong> Le locuteur émet de fortes réserves quant au coût financier des SUV qu'il juge onéreux, et admet avoir peur de dépenser une somme trop élevée (« worried about spending that much money »). Cela renvoie au prix de location (rental price).</div>
+          <div class="vocab-box">expensive : cher / coûteux · worried / concerned : inquiet / préoccupé</div>
+        </div>
+      </div>
+
+      <div class="question-item" data-q="70">
+        <div class="q-text"><span>70.</span> Look at the graphic. How much will the man pay per day?</div>
+        <ul class="options-list">
+          <li><label class="option-label"><input type="radio" name="q70" value="A"> (A) $69</label></li>
+          <li><label class="option-label"><input type="radio" name="q70" value="B"> (B) $85</label></li>
+          <li><label class="option-label"><input type="radio" name="q70" value="C"> (C) $73</label></li>
+          <li><label class="option-label"><input type="radio" name="q70" value="D"> (D) $57</label></li>
+        </ul>
+        <div class="correction-box">
+          <div class="transcript-quote">"Well, then how about a minivan? [...] Great. I'll take it."</div>
+          <div class="explanation-fr"><strong>Explication :</strong> Suite à l'objection financière sur le SUV, l'agent lui conseille de se rabattre sur un monospace (« minivan »), proposition validée immédiatement par le client. L'examen minutieux de la grille de prix associe la catégorie « Minivan » à un tarif journalier de 69 $.</div>
+          <div class="vocab-box">minivan : monospace / mini-fourgonnette · I'll take it : je le prends</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="actions">
+      <button type="submit" id="btn-submit" class="btn-submit" disabled>Veuillez répondre à toutes les questions</button>
+    </div>
+  </form>
+</main>
+
+<script>
+  // Ensemble des réponses correctes attendues
+  const answers = {
+    q32: 'B', q33: 'C', q34: 'B',
+    q35: 'D', q36: 'C', q37: 'B',
+    q38: 'A', q39: 'C', q40: 'D',
+    q62: 'B', q63: 'C', q64: 'A',
+    q65: 'A', q66: 'D', q67: 'C',
+    q68: 'B', q69: 'C', q70: 'A'
+  };
+
+  const totalQuestions = Object.keys(answers).length;
+  const form = document.getElementById('toeic-form');
+  const submitBtn = document.getElementById('btn-submit');
+
+  // Écouteur de changement pour activer/désactiver le bouton de soumission
+  form.addEventListener('change', () => {
+    const formData = new FormData(form);
+    let answeredCount = 0;
+    for (let key of formData.keys()) {
+      answeredCount++;
+    }
+    
+    if (answeredCount === totalQuestions) {
+      submitBtn.disabled = false;
+      submitBtn.classList.add('active');
+      submitBtn.innerText = "Soumettre et afficher la correction";
+    } else {
+      submitBtn.disabled = true;
+      submitBtn.classList.remove('active');
+      submitBtn.innerText = `Reste ${totalQuestions - answeredCount} question(s) à cocher`;
+    }
+  });
+
+  // Gestion de la validation du formulaire
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    
+    const formData = new FormData(form);
+    let score = 0;
+
+    // Désactivation des inputs radio pour figer le test
+    document.querySelectorAll('input[type="radio"]').forEach(radio => radio.disabled = true);
+    submitBtn.style.display = 'none';
+
+    // Algorithme de vérification et mise en couleur des labels
+    for (let q in answers) {
+      const userAnswer = formData.get(q);
+      const correctAnswer = answers[q];
+      
+      if (userAnswer === correctAnswer) {
+        score++;
+      }
+
+      // Coloriage pédagogique des éléments HTML
+      const labels = document.querySelectorAll(`input[name="${q}"]`);
+      labels.forEach(radio => {
+        const parentLabel = radio.closest('.option-label');
+        if (radio.value === correctAnswer) {
+          parentLabel.classList.add('correct-ans');
+        } else if (radio.value === userAnswer) {
+          parentLabel.classList.add('wrong-ans');
+        }
+      });
+    }
+
+    // Affichage des blocs de correction détaillés en français
+    document.querySelectorAll('.correction-box').forEach(box => box.style.display = 'block');
+
+    // Calcul de la table de conversion approximative TOEIC Listening (basée sur une règle de proportionnalité standardisée)
+    // 13/13 -> ~495 ; 0/13 -> ~5
+    const percentage = score / totalQuestions;
+    let convertedScore = Math.round((percentage * 490) + 5);
+    // Arrondi au multiple de 5 le plus proche conforme aux spécifications TOEIC
+    convertedScore = Math.round(convertedScore / 5) * 5;
+    if (convertedScore > 495) convertedScore = 495;
+
+    // Mise à jour du bandeau de résultats
+    document.getElementById('user-score').innerText = score;
+    document.getElementById('converted-score').innerText = convertedScore;
+    
+    const resultsPanel = document.getElementById('results-panel');
+    resultsPanel.style.display = 'block';
+    resultsPanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+</script>
+</body>
+</html>
