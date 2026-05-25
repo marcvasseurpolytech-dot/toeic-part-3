@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TOEIC Part 3 — Marc VASSEUR — Polytech Lille</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Source+Serif+4:wght@300;400;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy:#0d1b2a; --navy2:#162840; --navy3:#1e3a5f;
+    --gold:#c8993a; --gold-l:#e8b84b;
+    --cream:#f8f4ed; --cream2:#f0ead8; --border:#d4c5a9;
+    --text:#1a1a2e; --muted:#6b7280;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Source Serif 4',serif;background:var(--cream);color:var(--text);min-height:100vh;}
+
+  /* HEADER */
+  header{
+    background:var(--navy);
+    border-bottom:3px solid var(--gold);
+    box-shadow:0 4px 24px rgba(0,0,0,.35);
+  }
+  .hdr-inner{
+    max-width:960px;margin:0 auto;
+    padding:28px 32px;
+    display:flex;align-items:center;justify-content:space-between;gap:24px;
+    flex-wrap:wrap;
+  }
+  .brand h1{
+    font-family:'Playfair Display',serif;
+    font-size:1.7rem;color:var(--gold-l);
+    letter-spacing:.03em;line-height:1.1;
+  }
+  .brand p{
+    font-family:'JetBrains Mono',monospace;
+    font-size:.72rem;color:#94a3b8;
+    letter-spacing:.1em;margin-top:7px;
+  }
+
+  /* MAIN */
+  main{max-width:960px;margin:0 auto;padding:48px 24px 80px;}
+  
+  .sec-lbl{
+    font-family:'JetBrains Mono',monospace;font-size:.7rem;
+    letter-spacing:.12em;text-transform:uppercase;color:var(--muted);
+    margin:10px 0 20px 0;display:flex;align-items:center;gap:12px;
+  }
+  .sec-lbl::after{content:'';flex:1;height:1px;background:var(--border);}
+
+  /* CARD GRID */
+  .card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px;margin-bottom:30px;}
+
+  /* CARD */
+  a.card{
+    background:white;border:1px solid var(--border);border-radius:12px;
+    overflow:hidden;display:flex;flex-direction:column;
+    transition:box-shadow .2s,transform .2s;
+    text-decoration:none;color:inherit;
+  }
+  a.card:hover{box-shadow:0 10px 32px rgba(0,0,0,.13);transform:translateY(-3px);}
+
+  .card-stripe{height:5px; background:linear-gradient(90deg,var(--gold),var(--gold-l));}
+  .card-body{padding:20px 22px;flex:1;}
+  .card-meta{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;}
+  .card-ref{font-family:'JetBrains Mono',monospace;font-size:.68rem;color:var(--muted);letter-spacing:.07em;}
+  .badge{font-size:.66rem;font-weight:600;padding:3px 10px;border-radius:99px;background:#d1fae5;color:#1a7a4a;text-transform:uppercase;}
+  .card-title{font-family:'Playfair Display',serif;font-size:1.08rem;color:var(--navy);margin-bottom:8px;}
+  .card-desc{font-size:.84rem;color:var(--muted);line-height:1.65;}
+  .card-pills{display:flex;flex-wrap:wrap;gap:7px;margin-top:14px;}
+  .cpill{font-family:'JetBrains Mono',monospace;font-size:.68rem;background:var(--cream);color:var(--muted);padding:3px 10px;border-radius:99px;border:1px solid var(--border);}
+  
+  .card-foot{padding:13px 22px;border-top:1px solid var(--cream2);background:var(--cream);text-align:right;}
+  .start-btn{font-family:'JetBrains Mono',monospace;font-size:.74rem;font-weight:500;color:var(--navy);background:var(--gold-l);border:none;padding:7px 18px;border-radius:6px;cursor:pointer;text-decoration:none;display:inline-block;}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="hdr-inner">
+    <div class="brand">
+      <h1>TOEIC Practice Suite</h1>
+      <p>MARC VASSEUR &nbsp;·&nbsp; POLYTECH LILLE</p>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <div class="sec-lbl">Part 3 — Conversations</div>
+  <div class="card-grid">
+    
+    <a href="Part3-test1.html" class="card">
+      <div class="card-stripe"></div>
+      <div class="card-body">
+        <div class="card-meta"><span class="card-ref">PART 3 · N°01</span><span class="badge">Disponible</span></div>
+        <div class="card-title">Part 3 — Test 1</div>
+        <div class="card-desc">Série d'entraînement initiale aux conversations de groupe et face-à-face.</div>
+        <div class="card-pills"><span class="cpill">Questions 32–70</span></div>
+      </div>
+      <div class="card-foot"><span class="start-btn">Démarrer →</span></div>
+    </a>
+
+    <a href="toeic_part3_test2.html" class="card">
+      <div class="card-stripe"></div>
+      <div class="card-body">
+        <div class="card-meta"><span class="card-ref">PART 3 · N°02</span><span class="badge">Disponible</span></div>
+        <div class="card-title">Part 3 — Test 2</div>
+        <div class="card-desc">Série complète comprenant des questions avec supports graphiques (diagrammes, listes de cuisine).</div>
+        <div class="card-pills"><span class="cpill">Questions 32–70</span><span class="cpill">Graphiques interactifs</span></div>
+      </div>
+      <div class="card-foot"><span class="start-btn">Démarrer →</span></div>
+    </a>
+    
+  </div>
+
+</main>
+
+</body>
+</html>

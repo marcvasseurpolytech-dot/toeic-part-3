@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TOEIC Practice Suite - Part 3 Test 2</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+        :root {
+            --navy: #0d1b2a; --navy-light: #162840; --gold: #c8993a; --gold-l: #e8b84b;
+            --bg-cream: #f8f4ed; --text-dark: #1a1a2e; --muted: #6b7280;
+            --correct: #1a7a4a; --correct-bg: #d1fae5;
+            --wrong: #b91c1c; --wrong-bg: #fee2e2;
+        }
+
+        *{box-sizing:border-box; margin:0; padding:0;}
+        body { font-family: 'Inter', sans-serif; background-color: var(--bg-cream); color: var(--text-dark); padding: 40px 20px; }
+        main { max-width: 850px; margin: 0 auto; background: white; padding: 40px; border-radius: 12px; box-shadow: 0 4px 24px rgba(0,0,0,0.06); border: 1px solid #d4c5a9; }
+        
+        .header-title { font-family: 'Playfair Display', 'Merriweather', serif; font-size: 2rem; color: var(--navy); margin-bottom: 8px; }
+        .header-sub { font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; color: var(--gold); letter-spacing: 0.05em; margin-bottom: 30px; text-transform: uppercase; }
+        
+        .conversation-block { background: #faf8f5; border: 1px solid #e8e2d5; border-radius: 8px; padding: 25px; margin-bottom: 35px; }
+        .context-indicator { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: var(--muted); text-transform: uppercase; margin-bottom: 15px; border-bottom: 1px dashed #e8e2d5; padding-bottom: 5px; }
+        
+        /* GRAPHICS PANEL */
+        .inline-graphic-wrapper { margin: 15px 0 25px 0; }
+        .blink-btn {
+            background-color: var(--wrong); color: white; border: none; padding: 12px 20px;
+            border-radius: 6px; cursor: pointer; font-weight: 700; width: 100%; text-transform: uppercase;
+            font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; letter-spacing: 0.05em;
+        }
+        .graphic-content { display: none; background: white; padding: 20px; border: 2px dashed var(--gold); border-radius: 6px; margin-top: 10px; text-align: center; }
+        .graphic-img-placeholder { display: inline-block; padding: 15px 30px; background: #f3f4f6; border-radius: 4px; font-weight: bold; font-family: monospace; border: 1px solid #e5e7eb; margin-top: 10px; color: var(--navy); }
+
+        .question-item { margin-bottom: 20px; }
+        .question-text { font-weight: 600; margin-bottom: 10px; color: var(--navy-light); }
+        
+        .options-list { list-style: none; display: grid; grid-template-columns: 1fr; gap: 8px; }
+        .option-label { display: flex; align-items: center; padding: 10px 15px; background: white; border: 1px solid #e2d8c5; border-radius: 6px; cursor: pointer; transition: background 0.2s; }
+        .option-label:hover { background: var(--bg-cream); }
+        .option-label input { margin-right: 12px; transform: scale(1.1); }
+
+        .action-container { text-align: center; margin-top: 40px; }
+        .submit-btn { background: var(--navy); color: white; border: none; padding: 15px 40px; border-radius: 6px; font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; font-weight: bold; cursor: pointer; transition: background 0.2s; }
+        .submit-btn:hover { background: var(--navy-light); border-bottom: 2px solid var(--gold); }
+
+        /* CORRECTION STYLES */
+        .correction-box { display: none; margin-top: 40px; padding-top: 30px; border-top: 3px double var(--gold); }
+        .score-banner { font-family: 'JetBrains Mono', monospace; font-size: 1.5rem; text-align: center; padding: 20px; background: var(--navy); color: white; border-radius: 8px; margin-bottom: 30px; }
+        .corr-block { border-left: 4px solid var(--gold); padding-left: 20px; margin-bottom: 40px; }
+        .corr-title { font-family: 'Merriweather', serif; font-size: 1.1rem; color: var(--navy); margin-bottom: 10px; }
+        .transcript-box { background: #f0ead8; padding: 15px; border-radius: 6px; font-size: 0.9rem; margin-bottom: 15px; font-style: italic; color: #333; }
+        .cq-item { background: #fff; border: 1px solid #e5e7eb; border-radius: 6px; padding: 15px; margin-bottom: 15px; }
+        .cq-text { font-weight: bold; margin-bottom: 10px; }
+        .cq-opt { padding: 8px 12px; border-radius: 4px; margin-bottom: 4px; font-size: 0.9rem; }
+        .cq-opt.correct { background: var(--correct-bg); color: var(--correct); font-weight: 600; }
+        .cq-opt.wrong { background: var(--wrong-bg); color: var(--wrong); text-decoration: line-through; }
+        .expl { font-size: 0.88rem; margin-top: 10px; color: #444; background: #f9f9f9; padding: 10px; border-radius: 4px; }
+        .vocab { font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; margin-top: 5px; color: #6b7280; padding-left: 10px; }
+    </style>
+</head>
+<body>
+
+<main>
+    <h1 class="header-title">Part 3 — Test 2</h1>
+    <p class="header-sub">Marc Vasseur · Polytech Lille · Questions 32–70</p>
+    
+    <form id="quiz-form" onsubmit="evaluateQuiz(event)">
+        <div id="questions-target"></div>
+        <div class="action-container">
+            <button type="submit" class="submit-btn">Soumettre mes réponses</button>
+        </div>
+    </form>
+
+    <div id="correction-target" class="correction-box"></div>
+</main>
+
+<script>
+    const dataset = [
+        {
+            range: "32-34",
+            context: "Questions 32 through 34 refer to the following conversation.",
+            transcript: "M-Hi: Hello, Ms. Winkler. I'm calling from Star Flooring to tell you that we have the floor tiles you asked about earlier. They're $40 a case.\nW-Br: Really? $40? That's a lot more expensive than the last time I bought from you. Is there any way I could get a discount?\nM-Hi: Well, I can sell them for $35 a case, but you'd have to buy a minimum of 10 cases.\nW-Br: Okay. I'll need that many anyway. I'm planning on renovating some other rooms later, so I can use the extra materials.",
+            questions: [
+                { id: 32, text: "What is the man selling?", options: { A: "Fabric", B: "Luggage", C: "Flooring", D: "Lighting" }, correct: "C", expl: "Le locuteur indique explicitement qu'il appelle de 'Star Flooring' à propos de 'floor tiles' (carrelage de sol).", vocab: "Floor tiles = carrelage au sol | Case = boîte / caisse" },
+                { id: 33, text: "What does the man offer to do?", options: { A: "Discount a product", B: "Provide samples", C: "Cancel an order", D: "Fix a broken part" }, correct: "A", expl: "L'homme baisse le prix à $35 la caisse à condition d'en acheter au moins 10, acceptant ainsi de faire un rabais (discount).", vocab: "Discount = réduction / rabais | Minimum = un minimum de" },
+                { id: 34, text: "What does the woman say she plans to do later?", options: { A: "Attend a trade show", B: "Call another vendor", C: "Purchase some supplies", D: "Make additional renovations" }, correct: "D", expl: "La femme dit : 'I'm planning on renovating some other rooms later' (Je prévois de rénover d'autres pièces plus tard).", vocab: "Renovate = rénover / restaurer | Extra materials = matériaux supplémentaires" }
+            ]
+        },
+        {
+            range: "35-37",
+            context: "Questions 35 through 37 refer to the following conversation.",
+            transcript: "M-Au: Hello. I'm calling because I need some landscape work done in the front of my house. It's a small job.\nW-Am: That's no problem. We handle jobs of all sizes. I recommend we schedule a time to meet at your home. Which days next week are you available?\nM-Au: Monday mornings work best for me.\nW-Am: Okay, great. Once I see the space, I'll be able to develop some different proposals for you. Then I'll email you some drawings of what we can do.",
+            questions: [
+                { id: 35, text: "What kind of business is the man calling?", options: { A: "An architectural firm", B: "A landscaping company", C: "An interior-decorating agency", D: "A shipping company" }, correct: "B", expl: "L'homme mentionne qu'il a besoin de 'landscape work done' (travaux de paysagisme / aménagement extérieur).", vocab: "Landscape work = travaux de paysagisme | Front of the house = l'avant de la maison" },
+                { id: 36, text: "What does the woman ask the man about?", options: { A: "His availability", B: "His budget", C: "His color preferences", D: "His business address" }, correct: "A", expl: "La femme demande : 'Which days next week are you available?' pour fixer un rendez-vous.", vocab: "Schedule a time = planifier un rendez-vous | Available = disponible" },
+                { id: 37, text: "What does the woman say she will send the man?", options: { A: "A list of suppliers", B: "A contract", C: "Some delivery dates", D: "Some drawings" }, correct: "D", expl: "La femme précise à la fin : 'Then I'll email you some drawings of what we can do' (Puis je vous enverrai par e-mail des dessins).", vocab: "Proposals = propositions / projets | Drawings = dessins / plans" }
+            ]
+        },
+        {
+            range: "38-40",
+            context: "Questions 38 through 40 refer to the following conversation.",
+            transcript: "W-Br: Did you see the memo from the corporate office? Every employee has to complete a survey about our tech support services by the end of the week.\nM-Cn: Oh, right. I started filling it out yesterday, but I had to stop because I didn't have the IT project logs.\nW-Br: Well, you can just save your progress and finish it later. It only takes about ten minutes in total.\nM-Cn: Good to know. I'll make sure to complete it before Friday afternoon.",
+            questions: [
+                { id: 38, text: "Where do the speakers most likely work?", options: { A: "At an advertising company", B: "At an accounting firm", C: "At an art supply store", D: "At a corporate office" }, correct: "D", expl: "La femme commence par mentionner 'the memo from the corporate office' et discute d'une enquête interne à remplir par chaque employé.", vocab: "Memo = note de service | Corporate office = siège social / bureau de l'entreprise" },
+                { id: 39, text: "What is the purpose of the survey?", options: { A: "To evaluate tech support", B: "To select a new manager", C: "To choose a holiday destination", D: "To review safety protocols" }, correct: "A", expl: "La femme explique que le questionnaire porte sur 'our tech support services' (nos services de support technique).", vocab: "Survey = sondage / enquête | Fill out = remplir (un formulaire)" },
+                { id: 40, text: "When does the man say he will finish the survey?", options: { A: "By Wednesday night", B: "Before Friday afternoon", C: "On Monday morning", D: "Next week" }, correct: "B", expl: "L'homme dit textuellement : 'I'll make sure to complete it before Friday afternoon.'", vocab: "Save your progress = sauvegarder votre progression | Make sure = s'assurer de" }
+            ]
+        },
+        {
+            range: "41-43",
+            context: "Questions 41 through 43 refer to the following conversation.",
+            transcript: "M-Hi: Thanks for coming in today, Sarah. Your background in commercial sales is impressive, but we're looking for someone who also has experience in supply chain management.\nW-Am: I understand. Actually, in my last role at Apex Distribution, I coordinated logistics for over two years, managing inventory and shipping schedules.\nM-Hi: Oh, that wasn't fully detailed on your résumé! That changes things significantly. Let's discuss your experience with international vendors.\nW-Am: Certainly. I regularly negotiated terms with suppliers in Asia and Europe.",
+            questions: [
+                { id: 41, text: "What is the purpose of the meeting?", options: { A: "A performance review", B: "A job interview", C: "A sales pitch", D: "A budget discussion" }, correct: "B", expl: "L'homme mentionne 'Thanks for coming in today', évalue le 'background' (parcours) de Sarah et parle de son 'résumé' (CV). C'est un entretien d'embauche.", vocab: "Background = parcours / expérience | Résumé = CV" },
+                { id: 42, text: "What experience did the woman clarify?", options: { A: "Supply chain management", B: "Graphic design", C: "Financial auditing", D: "Legal counseling" }, correct: "A", expl: "Elle clarifie son expérience passée en expliquant qu'elle a passé deux ans à coordonner la logistique ('supply chain management' / 'logistics').", vocab: "Supply chain = chaîne logistique | Inventory = inventaire / stock" },
+                { id: 43, text: "What will the speakers likely discuss next?", options: { A: "Salary expectations", B: "Office hours", C: "International vendors", D: "A training program" }, correct: "C", expl: "L'homme conclut en disant : 'Let's discuss your experience with international vendors.'", vocab: "Vendors = fournisseurs / vendeurs | Negotiate terms = négocier les conditions" }
+            ]
+        },
+        {
+            range: "44-46",
+            context: "Questions 44 through 46 refer to the following conversation.",
+            transcript: "W-Br: Tom, did you finish repairing the main copier on the third floor? Marketing needs it for their presentation flyers.\nM-Cn: I fixed the paper jam, but I noticed the toner cartridge mechanism is slightly damaged. I need to order a replacement part.\nW-Br: How long will that take? The flyers need to be ready by tomorrow afternoon.\nM-Cn: The supplier usually delivers within 24 hours. In the meantime, Marketing can use the high-speed printer in the basement hub.",
+            questions: [
+                { id: 44, text: "What problem is being discussed?", options: { A: "A delayed delivery", B: "A broken copier mechanism", C: "A missing document", D: "An IT system crash" }, correct: "B", expl: "L'homme explique que le mécanisme de la cartouche de toner est endommagé ('toner cartridge mechanism is slightly damaged').", vocab: "Copier = photocopieuse | Paper jam = bourrage papier" },
+                { id: 45, text: "When do the flyers need to be completed?", options: { A: "By tonight", B: "By tomorrow afternoon", C: "By Friday morning", D: "By next week" }, correct: "B", expl: "La femme dit : 'The flyers need to be ready by tomorrow afternoon.'", vocab: "Flyers = prospectus / tracts | Replacement part = pièce de rechange" },
+                { id: 46, text: "What alternative does the man suggest?", options: { A: "Using a printer in the basement", B: "Postponing the presentation", C: "Hiring an external service", D: "Buying a new copier" }, correct: "A", expl: "L'homme suggère d'utiliser en attendant l'imprimante haute vitesse située au sous-sol ('the high-speed printer in the basement hub').", vocab: "In the meantime = en attendant | Basement = sous-sol" }
+            ]
+        },
+        {
+            range: "47-49",
+            context: "Questions 47 through 49 refer to the following conversation.",
+            transcript: "M-Au: Excuse me, I'm looking for the registration desk for the Annual Medical Conference. Is it on this floor?\nW-Am: No, it's actually upstairs in the Grand Ballroom lobby. You can take the elevators right over there to the fourth floor.\nM-Au: Great, thank you. Do you know if I can get my parking voucher stamped there too?\nW-Am: Yes, they validate parking at the main desk right next to where you pick up your conference badge.",
+            questions: [
+                { id: 47, text: "Where is the conversation taking place?", options: { A: "At a hospital", B: "At a conference venue or hotel", C: "At a parking garage", D: "At an airport terminal" }, correct: "B", expl: "Les locuteurs parlent de la 'Annual Medical Conference', du 'Grand Ballroom lobby' et du 'fourth floor', typique d'un hôtel ou centre de congrès.", vocab: "Registration desk = bureau d'inscription | Lobby = hall d'accueil" },
+                { id: 48, text: "Where is the registration desk located?", options: { A: "On the ground floor", B: "In the parking area", C: "On the fourth floor", D: "Next to the elevators" }, correct: "C", expl: "L'hôtesse indique que c'est en haut ('upstairs') et qu'il faut prendre l'ascenseur jusqu'au 4e étage ('to the fourth floor').", vocab: "Upstairs = à l'étage | Elevators = ascenseurs" },
+                { id: 49, text: "What does the man need to do with his parking voucher?", options: { A: "Pay for it", B: "Get it validated", C: "Exchange it for a badge", D: "Give it to his manager" }, correct: "B", expl: "L'homme demande si son ticket peut être tamponné ('stamped'), et la femme confirme qu'ils valident le stationnement ('validate parking').", vocab: "Voucher = ticket / bon | Validate parking = valider le ticket de parking" }
+            ]
+        },
+        {
+            range: "50-52",
+            context: "Questions 50 through 52 refer to the following conversation.",
+            transcript: "W-Br: David, the client from Novatech just called. They want to move our software demo from Thursday to Wednesday morning at 10 AM.\nM-Cn: Oh, that's tight. I haven't finished compiling the latest database update yet. I'll have to work late tonight.\nW-Br: I can help you with the database structuring if you want. That should save you a couple of hours.\nM-Cn: That would be a lifesaver! Let's meet in the conference room after lunch to coordinate.",
+            questions: [
+                { id: 50, text: "What change did the client request?", options: { A: "A price reduction", B: "An earlier meeting time", C: "A different project manager", D: "Additional software features" }, correct: "B", expl: "Le client souhaite avancer la démonstration de logiciel de jeudi à mercredi matin ('move our software demo from Thursday to Wednesday morning').", vocab: "Demo = démonstration | Tight = serré / juste" },
+                { id: 51, text: "Why is the man concerned?", options: { A: "He has a medical appointment", B: "He has not finished the database update", C: "He lost the client's file", D: "The software has a critical bug" }, correct: "B", expl: "L'homme s'inquiète car il n'a pas fini de compiler la dernière mise à jour de la base de données ('I haven't finished compiling the latest database update yet').", vocab: "Database = base de données | Compile = compiler" },
+                { id: 52, text: "What does the woman offer to do?", options: { A: "Call the client back", B: "Assist with database structuring", C: "Order lunch for the team", D: "Reschedule the demo" }, correct: "B", expl: "La femme offre son aide directe : 'I can help you with the database structuring if you want.'", vocab: "Lifesaver = un sauveur / une aide précieuse | Coordinate = se coordonner" }
+            ]
+        },
+        {
+            range: "53-55",
+            context: "Questions 53 through 55 refer to the following conversation.",
+            transcript: "M-Hi: Hi, Lisa. Are you attending the regional director's retirement dinner tonight at Bella Italia?\nW-Am: I really want to, but my car is in the repair shop until tomorrow morning. Public transit doesn't run out that far into the suburbs.\nM-Hi: I'm driving there anyway and I pass right by your neighborhood. I can easily pick you up around 6:30 PM.\nW-Am: That would be perfect! Let me text you my home address right now.",
+            questions: [
+                { id: 53, text: "What event are the speakers discussing?", options: { A: "A retirement dinner", B: "A product launch", C: "An orientation session", D: "A holiday party" }, correct: "A", expl: "Les interlocuteurs parlent du dîner de départ à la retraite du directeur régional ('regional director's retirement dinner').", vocab: "Retirement dinner = dîner de départ à la retraite | Regional director = directeur régional" },
+                { id: 54, text: "What is preventing the woman from attending?", options: { A: "She has to work late", B: "She does not have a car available", C: "She dislikes Italian food", D: "She is feeling unwell" }, correct: "B", expl: "La femme explique que sa voiture est au garage ('my car is in the repair shop until tomorrow morning') et qu'il n'y a pas de transports en commun adaptés.", vocab: "Repair shop = garage de réparation | Public transit = transports en commun" },
+                { id: 55, text: "What does the man offer to do?", options: { A: "Lend the woman his vehicle", B: "Give the woman a ride", C: "Cancel his own reservation", D: "Bring some food back for her" }, correct: "B", expl: "L'homme propose de la prendre au passage en voiture ('I can easily pick you up around 6:30 PM'), c'est-à-dire lui proposer un trajet (give a ride).", vocab: "Give a ride = déposer / véhiculer quelqu'un | Neighborhood = quartier" }
+            ]
+        },
+        {
+            range: "56-58",
+            context: "Questions 56 through 58 refer to the following conversation.",
+            transcript: "W-Br: Hello, Mr. Davies. This is Elena from Quality Cleaners. We have processed your winter wool coats, but we noticed a small tear along the lining of the gray coat.\nM-Cn: Oh, I wasn't aware of that. Can your shop repair it before I pick it up?\nW-Br: Yes, our tailor can patch it seamlessly. It will add an extra $15 to your bill, and it will delay completion by one day. Is that acceptable?\nM-Cn: That's completely fine. Go ahead and fix it. I'll pick everything up on Friday instead.",
+            questions: [
+                { id: 56, text: "Who is the woman calling from?", options: { A: "A clothing boutique", B: "A dry cleaner's shop", C: "A manufacturing plant", D: "A shipping agency" }, correct: "B", expl: "Elle se présente comme appelant de 'Quality Cleaners' et mentionne le traitement de manteaux en laine ('processed your winter wool coats'), ce qui correspond à un pressing / teinturerie (dry cleaner).", vocab: "Cleaners / Dry cleaner = pressing / blanchisserie | Wool coats = manteaux de laine" },
+                { id: 57, text: "What issue did the shop discover?", options: { A: "A missing button", B: "A tear in the coat lining", C: "A permanent stain", D: "An incorrect billing amount" }, correct: "B", expl: "La femme signale 'a small tear along the lining of the gray coat' (une petite déchirure le long de la doublure).", vocab: "Tear = déchirure / accroc | Lining = doublure" },
+                { id: 58, text: "What does the customer decide to do?", options: { A: "Request a full refund", B: "Approve the repair and extra fee", C: "Cancel the cleaning service", D: "Pick up the coat immediately" }, correct: "B", expl: "L'homme donne son accord ('Go ahead and fix it') pour la réparation malgré le coût supplémentaire de $15 et le délai d'un jour.", vocab: "Tailor = tailleur / couturier | Extra fee = frais supplémentaires" }
+            ]
+        },
+        {
+            range: "59-61",
+            context: "Questions 59 through 61 refer to the following conversation.",
+            transcript: "M-Au: Hi, Linda. Have you seen the layout plan for the new office workspace? Management wants to transition to an open-plan concept next month.\nW-Am: Yes, I looked at it this morning. Honestly, I'm a bit worried about the noise level. It might be hard to focus on complex reports.\nM-Au: I had the same concern. However, the architect included three private 'quiet booths' where anyone can work when they need absolute silence.\nW-Am: Oh, I must have missed that on the diagram. That definitely resolves my main objection.",
+            questions: [
+                { id: 59, text: "What change is planned for the workplace?", options: { A: "Moving to a new building", B: "Transitioning to an open-plan layout", C: "Implementing remote work", D: "Extending mandatory office hours" }, correct: "B", expl: "L'homme explique que la direction veut passer à un concept d'espace ouvert ('transition to an open-plan concept next month').", vocab: "Layout plan = plan d'aménagement | Open-plan concept = espace ouvert / open space" },
+                { id: 60, text: "Why is the woman concerned?", options: { A: "The commute will be longer", B: "The noise might disrupt her concentration", C: "The desk space is too small", D: "The internet connection might be weak" }, correct: "B", expl: "Elle dit textuellement : 'I'm a bit worried about the noise level. It might be hard to focus' (Le niveau sonore risque d'altérer ma concentration).", vocab: "Noise level = niveau sonore | Focus = se concentrer" },
+                { id: 61, text: "What design feature reassures the woman?", options: { A: "An outdoor terrace", B: "Soundproof quiet booths", C: "Larger individual desks", D: "An onsite cafeteria" }, correct: "B", expl: "L'homme la rassure en indiquant l'inclusion de trois cabines privées au calme ('three private quiet booths').", vocab: "Quiet booths = cabines insonorisées / espaces calmes | Reassure = rassurer" }
+            ]
+        },
+        {
+            range: "62-64",
+            context: "Questions 62 through 64 refer to the following conversation.",
+            transcript: "W-Br: Excuse me, sir. I'm looking for the technical manuals for the X-500 server line. I checked the computer hardware aisle, but I only saw consumer networking guides.\nM-Cn: Ah, the professional server documentation is kept in the reference annex at the back of the store, right next to the software engineering shelf.\nW-Br: Perfect. Can I check these books out, or are they restricted to in-store consultation only?\nM-Cn: You can check them out for up to two weeks, provided you have a corporate library card membership.",
+            questions: [
+                { id: 62, text: "What specific item is the woman trying to find?", options: { A: "A software license key", B: "A technical server manual", C: "A network cable replacement", D: "A programming textbook" }, correct: "B", expl: "La femme cherche explicitement 'the technical manuals for the X-500 server line'.", vocab: "Technical manuals = manuels techniques | Aisle = rayon / allée" },
+                { id: 63, text: "Where is the requested documentation located?", options: { A: "In the basement storage room", B: "In the reference annex at the back", C: "At the main entrance counter", D: "In the customer service center" }, correct: "B", expl: "L'employé indique que cela se trouve dans l'annexe de référence au fond du magasin ('in the reference annex at the back of the store').", vocab: "Reference annex = annexe de référence | Shelf = étagère" },
+                { id: 64, text: "What is required to borrow the material?", options: { A: "A supervisor's signature", B: "A corporate library card", C: "A cash deposit", D: "A valid photo ID" }, correct: "B", expl: "L'homme mentionne que l'on peut les emprunter à condition de posséder une carte de bibliothèque d'entreprise ('provided you have a corporate library card membership').", vocab: "Check out = emprunter | Corporate library card = carte de bibliothèque d'entreprise" }
+            ]
+        },
+        {
+            range: "65-67",
+            hasGraphic: true,
+            graphicId: "g_66",
+            graphicTitle: "Beef Soup Ingredients List",
+            graphicData: "Beef: 4 kg | Potatoes: 1 kg | Carrots: 700g | Onions: 500g",
+            context: "Questions 65 through 67 refer to the following conversation and ingredients list.",
+            transcript: "W-Am: Welcome to your first day in our kitchen, James. I know you have experience as a prep assistant, but we need you to start cooking right away.\nM-Au: Sure. What would you like me to do?\nW-Am: I need you to make beef soup. It's our lunch special today, so we'll need a lot. All our recipes are in this binder. Here's the one you'll need.\nM-Au: Thanks. Um, I'm used to making beef soup with more onions than this recipe calls for. The onions give it more flavour.\nW-Am: Oh, well, feel free to vary the ingredient amounts. Okay. A few more onions should do.\nM-Au: That's fine. Since you don't know your way around yet, I'll go and get more onions from the stock room for you.",
+            questions: [
+                { id: 65, text: "Why does the woman tell the man to make soup?", options: { A: "It is the restaurant's most popular dish.", B: "An order was placed for a catering event.", C: "It is the lunch special for today.", D: "The restaurant wants to try a new recipe." }, correct: "C", expl: "La femme dit clairement : 'It's our lunch special today, so we'll need a lot.'", vocab: "Lunch special = plat du jour | Binder = classeur" },
+                { id: 66, text: "Look at the graphic. Which amount will increase?", options: { A: "4 kg", B: "1 kg", C: "700 grams", D: "500 grams" }, correct: "D", expl: "L'homme suggère d'ajouter plus d'oignons ('more onions than this recipe calls for'). Selon le graphique, la quantité de base des oignons ('Onions, chopped') est de 500 grammes. C'est donc cette quantité qui va augmenter.", vocab: "Onions = oignons | Flavour = saveur / goût" },
+                { id: 67, text: "How will the woman help the man?", options: { A: "By contacting a supplier", B: "By reorganizing the kitchen", C: "By tasting a dish", D: "By bringing him some ingredients" }, correct: "D", expl: "La femme propose d'aller lui chercher des oignons supplémentaires dans la réserve : 'I'll go and get more onions from the stock room for you.'", vocab: "Stock room = réserve / économat | Know your way around = s'orienter / connaître les lieux" }
+            ]
+        },
+        {
+            range: "68-70",
+            hasGraphic: true,
+            graphicId: "g_68",
+            graphicTitle: "Product Development Process Diagram",
+            graphicData: "Step 1: Research ➔ Step 2: Development ➔ Step 3: Testing ➔ Step 4: Analysis",
+            context: "Questions 68 through 70 refer to the following conversation and process diagram.",
+            transcript: "W-Br: Hey, John. Congratulations. I just read an email mentioning that you're leading a product development team. How's it going?\nM-Cn: Really well. We just finished developing a camera and now we're testing it out.\nW-Br: Wow. That's exciting. What kind of camera is it?\nM-Cn: It's a camera for video conferencing. The camera can detect who's talking and moves around to focus on that person. It will make having online business meetings feel much more personal.\nW-Br: That sounds really interesting.\nM-Cn: I have the prototype in my office. Would you like to see it?\nW-Br: Sure. I'll be there in a few minutes.",
+            questions: [
+                { id: 68, text: "Look at the graphic. Which step in the process is the product in?", options: { A: "Step 1", B: "Step 2", C: "Step 3", D: "Step 4" }, correct: "C", expl: "L'homme dit : 'We just finished developing a camera and now we're testing it out' (Nous venons de finir le développement et nous sommes en train de la tester). Sur le diagramme de processus, l'étape de test correspond au 'Step 3: Testing'.", vocab: "Testing = phase de test | Process diagram = diagramme de processus" },
+                { id: 69, text: "What product are the speakers discussing?", options: { A: "A videoconferencing camera", B: "A smartphone screen", C: "A studio microphone", D: "A security alarm system" }, correct: "A", expl: "Le locuteur décrit l'appareil comme 'a camera for video conferencing' (une caméra de visioconférence capable de suivre le visage du haut-parleur).", vocab: "Videoconferencing = visioconférence | Detect = détecter" },
+                { id: 70, text: "What will the woman most likely do next?", options: { A: "Send an email update", B: "Go to John's office", C: "Call a prospective client", D: "Review a team budget" }, correct: "B", expl: "L'homme l'invite à voir le prototype dans son bureau ('I have the prototype in my office. Would you like to see it?'), ce à quoi elle répond : 'Sure. I'll be there in a few minutes.' Elle va donc se rendre à son bureau.", vocab: "Prototype = prototype | In a few minutes = dans quelques minutes" }
+            ]
+        }
+    ];
+
+    function toggleGraphic(id, btn) {
+        const target = document.getElementById(id);
+        if (target.style.display === "block") {
+            target.style.display = "none";
+            btn.textContent = "⚠️ Look at the graphic — click here";
+        } else {
+            target.style.display = "block";
+            btn.textContent = "Hide graphic window";
+        }
+    }
+
+    function renderQuiz() {
+        const container = document.getElementById('questions-target');
+        let html = '';
+
+        dataset.forEach((block, bIdx) => {
+            html += `<div class="conversation-block">`;
+            html += `<div class="context-indicator">${block.context}</div>`;
+            
+            if (block.hasGraphic) {
+                html += `
+                    <div class="inline-graphic-wrapper">
+                        <button type="button" class="blink-btn" onclick="toggleGraphic('${block.graphicId}', this)">⚠️ Look at the graphic (Q${block.questions[0].id + 1}) — click here</button>
+                        <div id="${block.graphicId}" class="graphic-content">
+                            <strong>${block.graphicTitle}</strong><br>
+                            <div class="graphic-img-placeholder">${block.graphicData}</div>
+                        </div>
+                    </div>
+                `;
+            }
+
+            block.questions.forEach(q => {
+                html += `
+                    <div class="question-item">
+                        <p class="question-text">${q.id}. ${q.text}</p>
+                        <div class="options-list">
+                `;
+                Object.keys(q.options).forEach(opt => {
+                    html += `
+                        <label class="option-label">
+                            <input type="radio" name="q${q.id}" value="${opt}" required>
+                            <span>(${opt}) ${q.options[opt]}</span>
+                        </label>
+                    `;
+                });
+                html += `</div></div>`;
+            });
+
+            html += `</div>`;
+        });
+
+        container.innerHTML = html;
+    }
+
+    function evaluateQuiz(e) {
+        e.preventDefault();
+        const formData = new FormData(document.getElementById('quiz-form'));
+        const userAnswers = {};
+        let score = 0;
+        let totalQuestions = 0;
+
+        dataset.forEach(block => {
+            block.questions.forEach(q => {
+                userAnswers[`q${q.id}`] = formData.get(`q${q.id}`);
+                totalQuestions++;
+                if(userAnswers[`q${q.id}`] === q.correct) score++;
+            });
+        });
+
+        const corrTarget = document.getElementById('correction-target');
+        corrTarget.style.display = "block";
+
+        let corrHtml = `
+            <div class="score-banner">
+                Score final : ${score} / ${totalQuestions} (${Math.round((score/totalQuestions)*100)}%)
+            </div>
+            <h2 style="margin-bottom:20px; font-family: 'Merriweather', serif;">Correction détaillée</h2>
+        `;
+
+        dataset.forEach(block => {
+            corrHtml += `
+                <div class="corr-block">
+                    <div class="context-indicator">${block.range} · Script Audio</div>
+                    <div class="transcript-box">${block.transcript.replace(/\n/g, '<br>')}</div>
+            `;
+
+            block.questions.forEach(q => {
+                const userAns = userAnswers[`q${q.id}`];
+                corrHtml += `
+                    <div class="cq-item">
+                        <div class="cq-text">${q.id}. ${q.text}</div>
+                `;
+
+                Object.keys(q.options).forEach(opt => {
+                    let statusClass = '';
+                    if (opt === q.correct) statusClass = 'correct';
+                    else if (opt === userAns && opt !== q.correct) statusClass = 'wrong';
+
+                    corrHtml += `
+                        <div class="cq-opt ${statusClass}">
+                            <strong>(${opt})</strong> ${q.options[opt]} ${opt === q.correct ? ' ✓' : ''}
+                        </div>
+                    `;
+                });
+
+                corrHtml += `
+                        <div class="expl"><strong>Explication :</strong> ${q.expl}</div>
+                        <div class="vocab">💡 ${q.vocab}</div>
+                    </div>
+                `;
+            });
+
+            corrHtml += `</div>`;
+        });
+
+        corrTarget.innerHTML = corrHtml;
+        corrTarget.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    renderQuiz();
+</script>
+
+</body>
+</html>
