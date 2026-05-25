@@ -3,37 +3,133 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TOEIC Practice Suite — Index</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Source+Serif+4:wght@400;600&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<title>TOEIC Part 3 — Marc VASSEUR — Polytech Lille</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Source+Serif+4:wght@300;400;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root {
-    --navy: #0d1b2a; --gold: #c8993a; --cream: #f8f4ed; --border: #d4c5a9;
+    --navy:#0d1b2a; --navy2:#162840; --navy3:#1e3a5f;
+    --gold:#c8993a; --gold-l:#e8b84b;
+    --cream:#f8f4ed; --cream2:#f0ead8; --border:#d4c5a9;
+    --text:#1a1a2e; --muted:#6b7280;
   }
-  body { font-family: 'Source Serif 4', serif; background: var(--cream); color: var(--navy); padding: 50px 20px; }
-  .container { max-width: 650px; margin: 0 auto; background: white; padding: 40px; border: 1px solid var(--border); border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
-  h1 { font-family: 'Playfair Display', serif; font-size: 2rem; margin-bottom: 10px; text-align: center; }
-  p.subtitle { font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; text-align: center; color: #666; margin-bottom: 40px; }
-  .test-link {
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 20px; background: var(--cream); border: 1px solid var(--border);
-    border-radius: 8px; text-decoration: none; color: var(--navy); font-weight: 600;
-    transition: all 0.2s;
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Source Serif 4',serif;background:var(--cream);color:var(--text);min-height:100vh;}
+
+  /* HEADER */
+  header{
+    background:var(--navy);
+    border-bottom:3px solid var(--gold);
+    box-shadow:0 4px 24px rgba(0,0,0,.35);
   }
-  .test-link:hover { background: var(--navy); color: white; transform: translateY(-2px); }
-  .tag { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; background: var(--gold); color: white; padding: 4px 8px; border-radius: 4px; }
+  .hdr-inner{
+    max-width:1200px;margin:0 auto;padding:24px 32px;
+    display:flex;align-items:center;justify-content:between;
+  }
+  .brand h1{font-family:'Playfair Display',serif;font-size:1.8rem;color:var(--gold-l);letter-spacing:.02em;}
+  .brand p{font-family:'JetBrains Mono',monospace;font-size:.75rem;color:#94a3b8;letter-spacing:.15em;margin-top:4px;text-transform:uppercase;}
+
+  /* MAIN CONTENT */
+  main{max-width:1200px;margin:0 auto;padding:48px 32px 80px;}
+  
+  .sec-lbl{
+    font-family:'JetBrains Mono',monospace;font-size:.8rem;color:var(--gold);
+    text-transform:uppercase;letter-spacing:.15em;margin-bottom:16px;font-weight:600;
+  }
+  
+  /* GRID SYSTEM */
+  .card-grid{
+    display:grid;grid-template-columns:repeat(auto-fill, minmax(350px, 1fr));gap:32px;
+  }
+  
+  /* CARD ARCHITECTURE */
+  .card{
+    background:white;border:1px solid var(--border);border-radius:12px;
+    text-decoration:none;color:inherit;display:flex;flex-direction:column;
+    position:relative;overflow:hidden;box-shadow:0 4px 16px rgba(0,0,0,.03);
+    transition:transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+  }
+  .card:hover{
+    transform:translateY(-4px);box-shadow:0 12px 32px rgba(13,27,42,.08);border-color:var(--navy3);
+  }
+  
+  .card-stripe{height:4px;background:var(--border);transition:background .25s;}
+  .card:hover .card-stripe{background:var(--gold);}
+  
+  .card-body{padding:28px;flex-grow:1;display:flex;flex-direction:column;}
+  .card-meta{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;}
+  .card-ref{font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--muted);font-weight:500;}
+  
+  .badge{
+    font-family:'JetBrains Mono',monospace;font-size:.65rem;font-weight:500;
+    padding:4px 10px;border-radius:20px;background:var(--cream2);color:var(--navy2);
+  }
+  
+  .card-title{font-family:'Playfair Display',serif;font-size:1.35rem;color:var(--navy);font-weight:700;margin-bottom:10px;}
+  .card-desc{font-size:.9rem;line-height:1.5;color:#4b5563;margin-bottom:20px;flex-grow:1;}
+  
+  /* PILLS */
+  .card-pills{display:flex;gap:8px;flex-wrap:wrap;}
+  .cpill{font-family:'JetBrains Mono',monospace;font-size:.7rem;background:var(--cream);padding:4px 8px;border-radius:4px;color:var(--navy3);}
+
+  /* FOOTER CARD */
+  .card-foot{
+    padding:16px 28px;background:#fafaf9;border-top:1px solid #f3f3f2;
+    display:flex;justify-content:flex-end;align-items:center;
+  }
+  .start-btn{font-family:'JetBrains Mono',monospace;font-size:.78rem;font-weight:600;color:var(--navy2);transition:color .2s;}
+  .card:hover .start-btn{color:var(--gold);}
 </style>
 </head>
 <body>
 
-<div class="container">
-  <h1>TOEIC Practice Suite</h1>
-  <p class="subtitle">POLYTECH LILLE — ENTRAÎNEMENT CONTINU</p>
-  
-  <a href="Part3-test3.html" class="test-link">
-    <span>TOEIC Listening — Part 3 (Questions 32 à 70)</span>
-    <span class="tag">39 Questions</span>
-  </a>
-</div>
+<header>
+  <div class="hdr-inner">
+    <div class="brand">
+      <h1>TOEIC Practice Suite</h1>
+      <p>MARC VASSEUR &nbsp;·&nbsp; POLYTECH LILLE</p>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="sec-lbl">Part 3 — Conversations</div>
+  <div class="card-grid">
+    
+    <a href="Part3-test1.html" class="card">
+      <div class="card-stripe"></div>
+      <div class="card-body">
+        <div class="card-meta"><span class="card-ref">PART 3 · N°01</span><span class="badge">Disponible</span></div>
+        <div class="card-title">Part 3 — Test 1</div>
+        <div class="card-desc">Série d'entraînement initiale aux conversations de groupe et face-à-face.</div>
+        <div class="card-pills"><span class="cpill">Questions 32–70</span></div>
+      </div>
+      <div class="card-foot"><span class="start-btn">Démarrer →</span></div>
+    </a>
+
+    <a href="Part3-test2.html" class="card">
+      <div class="card-stripe"></div>
+      <div class="card-body">
+        <div class="card-meta"><span class="card-ref">PART 3 · N°02</span><span class="badge">Disponible</span></div>
+        <div class="card-title">Part 3 — Test 2</div>
+        <div class="card-desc">Série complète comprenant des questions avec supports graphiques complexes (diagrammes, listes).</div>
+        <div class="card-pills"><span class="cpill">Questions 32–70</span><span class="cpill">Graphics</span></div>
+      </div>
+      <div class="card-foot"><span class="start-btn">Démarrer →</span></div>
+    </a>
+
+    <a href="Part3-test3.html" class="card">
+      <div class="card-stripe"></div>
+      <div class="card-body">
+        <div class="card-meta"><span class="card-ref">PART 3 · N°03</span><span class="badge" style="background:rgba(200,153,58,0.15); color:var(--navy);">Nouveau</span></div>
+        <div class="card-title">Part 3 — Test 3</div>
+        <div class="card-desc">Version intégrale retranscrite à partir de Piste 3.txt. Contient la totalité des 13 conversations et les visuels IT / Véhicules.</div>
+        <div class="card-pills"><span class="cpill">Questions 32–70</span><span class="cpill">Audio Sync</span><span class="cpill">39 Qs</span></div>
+      </div>
+      <div class="card-foot"><span class="start-btn">Démarrer →</span></div>
+    </a>
+
+  </div>
+</main>
 
 </body>
 </html>
